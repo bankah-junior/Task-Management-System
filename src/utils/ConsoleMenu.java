@@ -5,7 +5,6 @@ import services.ProjectService;
 import services.TaskService;
 import services.UserService;
 import services.ReportService;
-import utils.ValidationUtils;
 import models.*;
 
 public class ConsoleMenu {
@@ -198,12 +197,6 @@ public class ConsoleMenu {
         projectService.deleteProject(id);
     }
 
-    private void filterProjectByType() {
-        System.out.print("Enter project type to filter (Software/Hardware): ");
-        String type = scanner.nextLine();
-        projectService.filterByType(type);
-    }
-
     // ------------------- Task submenu -------------------
     private void taskMenu() {
         System.out.println("======================================");
@@ -270,7 +263,9 @@ public class ConsoleMenu {
         System.out.println("1. Add User");
         System.out.println("2. View Users");
         System.out.println("3. Delete User");
-        System.out.println("4. Back");
+        System.out.println("4. Assign To Project");
+        System.out.println("5. Assign To Task");
+        System.out.println("6. Back");
 
         System.out.print("Enter your choice: ");
         int choice = scanner.nextInt();
@@ -291,7 +286,28 @@ public class ConsoleMenu {
                 int id = scanner.nextInt();
                 userService.deleteUser(id);
             }
-            case 4 -> { return; }
+            case 4 -> {
+                System.out.print("Enter User ID: ");
+                int userId = scanner.nextInt();
+                System.out.print("Enter Project ID: ");
+                int projectId = scanner.nextInt();
+                User user = userService.login(userId);
+                Project project = projectService.getProjectById(projectId);
+                userService.assignUserToProject(user, project);
+            }
+            case 5 -> {
+                System.out.print("Enter User ID: ");
+                int userId = scanner.nextInt();
+                System.out.print("Enter Project ID: ");
+                int projectId = scanner.nextInt();
+                System.out.print("Enter Task ID: ");
+                int taskId = scanner.nextInt();
+                User user = userService.login(userId);
+                Project project = projectService.getProjectById(projectId);
+                Task task = taskService.getTaskById(taskId, project.getTasks());
+                userService.assignUserToTask(user, task);
+            }
+            case 6 -> { return; }
         }
     }
 

@@ -2,24 +2,15 @@ package models;
 
 public abstract class Project {
 
-    // =========================
-    // EPIC 1 FIELDS
-    // =========================
     private int id;
     private String name;
     private String description;
     private double budget;
     private int teamSize;
 
-    // =========================
-    // EPIC 2 FIELDS (Tasks)
-    // =========================
     private Task[] tasks = new Task[20];
     private int taskCount = 0;
 
-    // =========================
-    // CONSTRUCTOR
-    // =========================
     public Project(int id, String name, String description, double budget, int teamSize) {
         this.id = id;
         this.name = name;
@@ -28,40 +19,30 @@ public abstract class Project {
         this.teamSize = teamSize;
     }
 
-    // =========================
     // GETTERS
-    // =========================
     public int getId() {
         return id;
     }
-
     public String getName() {
         return name;
     }
-
     public double getBudget() {
         return budget;
     }
-
     public int getTeamSize() {
         return teamSize;
     }
 
-    // In Project.java
+    // SETTERS
     public void setName(String name) { this.name = name; }
     public void setDescription(String description) { this.description = description; }
     public void setTeamSize(int teamSize) { this.teamSize = teamSize; }
     public void setBudget(double budget) { this.budget = budget; }
 
 
-    // =========================
     // ABSTRACT METHOD
-    // =========================
     public abstract String getProjectDetails();
 
-    // =========================
-    // DISPLAY PROJECT
-    // =========================
     public void displayProject() {
         System.out.println("\n--------------------------------------------------");
         System.out.println("Project ID   : " + id);
@@ -72,7 +53,6 @@ public abstract class Project {
         System.out.println("Type         : " + getProjectDetails());
         System.out.println("--------------------------------------------------");
     }
-
     public void displayProjectHorizontal() {
         System.out.printf(
                 "%-4d | %-20s | %-15s | %-10d | $%-10.2f | %s\n",
@@ -84,10 +64,6 @@ public abstract class Project {
                 description
         );
     }
-
-    // =========================
-    // EPIC 2 — TASK MANAGEMENT
-    // =========================
 
     public boolean addTask(Task task) {
         // prevent duplicate IDs
@@ -107,7 +83,6 @@ public abstract class Project {
             return false;
         }
     }
-
     public Task getTaskById(int id) {
         for (int i = 0; i < taskCount; i++) {
             if (tasks[i].getId() == id) {
@@ -116,7 +91,6 @@ public abstract class Project {
         }
         return null;
     }
-
     public void displayAllTasks() {
         if (taskCount == 0) {
             System.out.println("No tasks found for this project.");
@@ -137,18 +111,13 @@ public abstract class Project {
         System.out.println("Total Tasks: " + taskCount);
         System.out.println("--------------------------------------------------");
     }
-
     public Task[] getTasks() {
         return tasks;
     }
-
     public int getTaskCount() {
         return taskCount;
     }
-
-    // In Project.java
     public void decrementTaskCount() {
         if (taskCount > 0) taskCount--;
     }
-
 }

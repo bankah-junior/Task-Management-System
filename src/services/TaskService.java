@@ -74,4 +74,14 @@ public class TaskService {
             System.out.println("Task not found in project.");
         }
     }
+
+    public Task getTaskById(int taskId, Task[] tasks) {
+        for (Task t : tasks) {
+            if (t.getId() == taskId) {
+                return t;
+            }
+        }
+        System.out.println("Task ID not found.");
+        return null;
+    }
 }

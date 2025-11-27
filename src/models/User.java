@@ -28,7 +28,6 @@ public abstract class User {
     public String getName() { return name; }
     public String getEmail() { return email; }
     public String getRole() { return role; }
-
     public List<Project> getAssignedProjects() { return assignedProjects; }
     public List<Task> getAssignedTasks() { return assignedTasks; }
 

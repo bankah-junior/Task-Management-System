@@ -11,13 +11,13 @@ public class StatusReport {
     // Optional: per-user completed tasks summary
     private Map<String, Integer> userTaskSummary;
 
+    // METHOD OVERLOAD
     public StatusReport(int totalTasks, int completedTasks, int pendingTasks, double percentageCompleted) {
         this.totalTasks = totalTasks;
         this.completedTasks = completedTasks;
         this.pendingTasks = pendingTasks;
         this.percentageCompleted = percentageCompleted;
     }
-
     public StatusReport(int totalTasks, int completedTasks, int pendingTasks, double percentageCompleted, Map<String, Integer> userTaskSummary) {
         this(totalTasks, completedTasks, pendingTasks, percentageCompleted);
         this.userTaskSummary = userTaskSummary;
