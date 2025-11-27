@@ -59,9 +59,13 @@ public abstract class User {
 
     @Override
     public String toString() {
-        return "User ID: " + id +
-                ", Name: " + name +
-                ", Email: " + email +
-                ", Role: " + role;
+        return String.format(
+                "%-5d | %-15s | %-25s | %-12s",
+                id,
+                name,
+                email,
+                role
+        );
     }
+
 }

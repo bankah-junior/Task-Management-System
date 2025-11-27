@@ -37,9 +37,10 @@ public class ConsoleMenu {
             switch (choice) {
                 case 1 -> projectMenu();
                 case 2 -> taskMenu();
-                case 3 -> reportMenu();
-                case 4 -> login();
-                case 5 -> System.out.println("Exiting... Goodbye!");
+                case 3 -> userMenu();
+                case 4 -> reportMenu();
+                case 5 -> login();
+                case 6 -> System.out.println("Exiting... Goodbye!");
             }
         } while (choice != 5);
     }
@@ -68,9 +69,10 @@ public class ConsoleMenu {
         System.out.println("---------");
         System.out.println("1. Manage Project");
         System.out.println("2. Manage Tasks");
-        System.out.println("3. View Status Reports");
-        System.out.println("4. Switch User");
-        System.out.println("5. Exit");
+        System.out.println("3. Manage Users");
+        System.out.println("4. View Status Reports");
+        System.out.println("5. Switch User");
+        System.out.println("6. Exit");
     }
 
     private int getMenuChoice() {
@@ -262,23 +264,31 @@ public class ConsoleMenu {
             return;
         }
 
-        System.out.println("\n-- User Menu --");
+        System.out.println("\n======================================");
+        System.out.println("||             USER MENU            ||");
+        System.out.println("======================================");
         System.out.println("1. Add User");
         System.out.println("2. View Users");
         System.out.println("3. Delete User");
         System.out.println("4. Back");
 
-        int choice = Integer.parseInt(scanner.nextLine());
+        System.out.print("Enter your choice: ");
+        int choice = scanner.nextInt();
         switch (choice) {
             case 1 -> {
-                System.out.print("Name: "); String name = scanner.nextLine();
-                System.out.print("Email: "); String email = scanner.nextLine();
-                System.out.print("Role (ADMIN/REGULAR_USER): "); String role = scanner.nextLine();
+                scanner.nextLine();
+                System.out.print("Name: ");
+                String name = scanner.nextLine();
+                System.out.print("Email: ");
+                String email = scanner.nextLine();
+                System.out.print("Role (ADMIN/REGULAR_USER): ");
+                String role = scanner.nextLine();
                 userService.createUser(name, email, role);
             }
             case 2 -> userService.displayUsers();
             case 3 -> {
-                System.out.print("User ID to delete: "); int id = Integer.parseInt(scanner.nextLine());
+                System.out.print("User ID to delete: ");
+                int id = scanner.nextInt();
                 userService.deleteUser(id);
             }
             case 4 -> { return; }

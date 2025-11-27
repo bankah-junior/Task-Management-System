@@ -36,9 +36,16 @@ public class UserService {
             System.out.println("No users found.");
             return;
         }
+
+        System.out.println("---------------------------------------------------------------");
+        System.out.println("ID    | Name            | Email                     | Role");
+        System.out.println("---------------------------------------------------------------");
+
         for (User u : users) {
             System.out.println(u);
         }
+
+        System.out.println("---------------------------------------------------------------");
     }
 
     // Delete user by ID
