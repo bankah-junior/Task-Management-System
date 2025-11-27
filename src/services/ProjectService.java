@@ -32,23 +32,27 @@ public class ProjectService {
             System.out.println("No projects available.");
             return;
         }
-        System.out.println("---------------------------------------------------------------------");
-        System.out.println("ID  | PROJECT NAME  | TYPE  |   TEAM SIZE   |   BUDGET  | DESCRIPTION");
-        System.out.println("---------------------------------------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------------");
+        System.out.println("ID   | PROJECT NAME         | TYPE             | TEAM SIZE  |   BUDGET   | DESCRIPTION");
+        System.out.println("--------------------------------------------------------------------------------------");
         for (int i = 0; i < size; i++) {
             projects[i].displayProjectHorizontal();
         }
-        System.out.println("--------------------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------------");
         System.out.println("Total Projects: " + getSize());
-        System.out.println("--------------------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------------");
     }
 
     // Filter projects by type
     public void filterByType(String type) {
         boolean found = false;
+        System.out.println("--------------------------------------------------------------------------------------");
+        System.out.println("ID   | PROJECT NAME         | TYPE             | TEAM SIZE  |   BUDGET   | DESCRIPTION");
+        System.out.println("--------------------------------------------------------------------------------------");
+
         for (int i = 0; i < size; i++) {
             if (projects[i].getProjectDetails().equalsIgnoreCase(type)) {
-                projects[i].displayProject();
+                projects[i].displayProjectHorizontal();
                 found = true;
             }
         }
@@ -59,10 +63,14 @@ public class ProjectService {
     public void searchByBudget(double min, double max) {
         boolean found = false;
         System.out.printf("Projects between $%.2f and $%.2f:\n", min, max);
+        System.out.println("--------------------------------------------------------------------------------------");
+        System.out.println("ID   | PROJECT NAME         | TYPE             | TEAM SIZE  |   BUDGET   | DESCRIPTION");
+        System.out.println("--------------------------------------------------------------------------------------");
+
         for (int i = 0; i < size; i++) {
             double budget = projects[i].getBudget();
             if (budget >= min && budget <= max) {
-                projects[i].displayProject();
+                projects[i].displayProjectHorizontal();
                 found = true;
             }
         }

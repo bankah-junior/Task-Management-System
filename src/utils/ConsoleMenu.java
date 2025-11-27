@@ -94,17 +94,42 @@ public class ConsoleMenu {
         System.out.println("\n======================================");
         System.out.println("||          PROJECT CATALOG         ||");
         System.out.println("======================================");
+        System.out.println("Project Menu --");
+        System.out.println("1. Add Project (Admin Only)");
+        System.out.println("2. Update Project (Admin Only)");
+        System.out.println("3. Delete Project (Admin Only)");
         System.out.println("\nFilter options: ");
-        System.out.println("1. View All Projects (" + projectService.getSize() + ")");
-        System.out.println("2. Software Projects Only");
-        System.out.println("3. Hardware Projects Only");
-        System.out.println("4. Search by Budget range");
-        System.out.println("5. Back");
+        System.out.println("4. View All Projects (" + projectService.getSize() + ")");
+        System.out.println("5. Software Projects Only");
+        System.out.println("6. Hardware Projects Only");
+        System.out.println("7. Search by Budget range");
+        System.out.println("8. Back");
 
         System.out.print("\nEnter filter choice: ");
         int choice = Integer.parseInt(scanner.nextLine());
         switch (choice) {
             case 1 -> {
+                if (!loggedInUser.getRole().equals("ADMIN")) {
+                    System.out.println("Access denied!");
+                    return;
+                }
+                addProject();
+            }
+            case 2 -> {
+                if (!loggedInUser.getRole().equals("ADMIN")) {
+                    System.out.println("Access denied!");
+                    return;
+                }
+                updateProject();
+            }
+            case 3 -> {
+                if (!loggedInUser.getRole().equals("ADMIN")) {
+                    System.out.println("Access denied!");
+                    return;
+                }
+                deleteProject();
+            }
+            case 4 -> {
                 projectService.displayAllProjects();
                 System.out.print("\nEnter project id to view details (or 0 to return): ");
                 int projectId = scanner.nextInt();
@@ -120,16 +145,16 @@ public class ConsoleMenu {
                 }
                 taskMenu();
             }
-            case 2 -> projectService.filterByType("Software Project");
-            case 3 -> projectService.filterByType("Hardware Project");
-            case 4 -> {
+            case 5 -> projectService.filterByType("Software Project");
+            case 6 -> projectService.filterByType("Hardware Project");
+            case 7 -> {
                 System.out.print("Enter minimum budget: ");
                 int min = scanner.nextInt();
                 System.out.print("Enter maximum budget: ");
                 int max = scanner.nextInt();
                 projectService.searchByBudget(min,max);
             }
-            case 5 -> { return; }
+            case 8 -> { return; }
         }
     }
 
@@ -179,7 +204,9 @@ public class ConsoleMenu {
 
     // ------------------- Task submenu -------------------
     private void taskMenu() {
-        System.out.println("\n-- Task Menu --");
+        System.out.println("======================================");
+        System.out.println("||             TASK MENU            ||");
+        System.out.println("======================================");
         System.out.println("1. Add Task");
         System.out.println("2. Update Task");
         System.out.println("3. Remove Task");

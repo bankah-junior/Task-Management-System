@@ -45,17 +45,6 @@ public class Task implements Completable {
     public boolean isCompleted() { return status == TaskStatus.COMPLETED; }
 
     public void displayTask() {
-        System.out.println("   Task ID   : " + id);
-        System.out.println("   Name      : " + name);
-        System.out.println("   Status    : " + status);
-        System.out.println("   Hours     : " + hours);
-        if (assignedUser != null) {
-            System.out.println("   Assigned  : " + assignedUser.getName() + " (" + assignedUser.getRole() + ")");
-        }
-        System.out.println("-------------------------------------");
-    }
-
-    public void displayTaskHorizontal() {
-        System.out.printf("%s   | %s    | %s \n", id, name, status);
+        System.out.printf("%-4d | %-20s | %-15s\n", id, name, status);
     }
 }
