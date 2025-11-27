@@ -92,7 +92,7 @@ public abstract class Project {
 
         if (taskCount < tasks.length) {
             tasks[taskCount++] = task;
-            System.out.println("Task added successfully!");
+            System.out.printf("Task \"%s\" added successfully to Project %s\n", task.getName(), id);
             return true;
         } else {
             System.out.println("Task list is full!");

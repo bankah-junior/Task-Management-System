@@ -21,12 +21,12 @@ public class Main {
         User regular2 = userService.createUser("Charlie", "charlie@example.com", "REGULAR_USER");
 
         // ----------------- Create sample projects -----------------
-        Project p1 = new SoftwareProject(1, "Project Alpha", "Software project for app", 10000, 5);
-        Project p2 = new HardwareProject(2, "Project Beta", "Hardware testing project", 15000, 3);
-        Project p3 = new SoftwareProject(3, "Project Gamma", "New web platform", 20000, 6);
-        Project p4 = new HardwareProject(4, "Project Delta", "IoT sensor hardware", 18000, 4);
-        Project p5 = new SoftwareProject(5, "Project Epsilon", "Mobile game development", 12000, 5);
-        Project p6 = new HardwareProject(6, "Project Zeta", "Robotics assembly", 25000, 8);
+        Project p1 = new SoftwareProject(1, "Alpha", "Software project for app", 10000, 5);
+        Project p2 = new HardwareProject(2, "Beta", "Hardware testing project", 15000, 3);
+        Project p3 = new SoftwareProject(3, "Gamma", "New web platform", 20000, 6);
+        Project p4 = new HardwareProject(4, "Delta", "IoT sensor hardware", 18000, 4);
+        Project p5 = new SoftwareProject(5, "Epsilon", "Mobile game development", 12000, 5);
+        Project p6 = new HardwareProject(6, "Zeta", "Robotics assembly", 25000, 8);
 
         projectService.addProject(p1);
         projectService.addProject(p2);

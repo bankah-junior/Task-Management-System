@@ -69,9 +69,8 @@ public class ConsoleMenu {
         System.out.println("1. Manage Project");
         System.out.println("2. Manage Tasks");
         System.out.println("3. View Status Reports");
-//        System.out.println("4. Manage Users");
         System.out.println("4. Switch User");
-        System.out.println("6. Exit");
+        System.out.println("5. Exit");
     }
 
     private int getMenuChoice() {
@@ -102,6 +101,7 @@ public class ConsoleMenu {
         System.out.println("4. Search by Budget range");
         System.out.println("5. Back");
 
+        System.out.print("\nEnter filter choice: ");
         int choice = Integer.parseInt(scanner.nextLine());
         switch (choice) {
             case 1 -> {
@@ -200,15 +200,21 @@ public class ConsoleMenu {
 
         switch (choice) {
             case 1 -> {
-                System.out.print("Task Name: "); String name = scanner.nextLine();
+                scanner.nextLine();
+                System.out.print("Task Name: ");
+                String name = scanner.nextLine();
                 System.out.print("Status (TODO, IN_PROGRESS, COMPLETED): ");
                 TaskStatus status = TaskStatus.valueOf(scanner.nextLine().toUpperCase());
+                System.out.print("Duration (Hours): ");
                 int hours = scanner.nextInt();
                 taskService.addTaskToProject(project, name, status, loggedInUser, hours);
             }
             case 2 -> {
-                System.out.print("Task ID to update: "); int taskId = Integer.parseInt(scanner.nextLine());
-                System.out.print("New Name (or press Enter to skip): "); String newName = scanner.nextLine();
+                System.out.print("Task ID to update: ");
+                int taskId = scanner.nextInt();
+                scanner.nextLine();
+                System.out.print("New Name (or press Enter to skip): ");
+                String newName = scanner.nextLine();
                 System.out.print("New Status (TODO, IN_PROGRESS, COMPLETED) or Enter to skip: ");
                 String statusInput = scanner.nextLine();
                 TaskStatus newStatus = statusInput.isEmpty() ? null : TaskStatus.valueOf(statusInput.toUpperCase());
@@ -254,15 +260,11 @@ public class ConsoleMenu {
 
     // ------------------- Report submenu -------------------
     private void reportMenu() {
-        System.out.print("Enter Project ID for report: ");
-        int projectId = Integer.parseInt(scanner.nextLine());
-        Project project = projectService.getProjectById(projectId);
-        if (project == null) {
-            System.out.println("Project not found!");
-            return;
-        }
-        StatusReport report = reportService.generateProjectStatus(project);
-        System.out.println(report);
+        System.out.println("\n======================================");
+        System.out.println("||      PROJECT STATUS REPORT       ||");
+        System.out.println("======================================");
+        Project[] allProjects = projectService.getProjects();
+        reportService.generateAllProjectReports(allProjects);
     }
 
     // Close scanner

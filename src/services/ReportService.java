@@ -44,10 +44,34 @@ public class ReportService {
             }
         }
 
-        double percent = (total == 0) ? 0.0 : ((double) completed / total) * 100;
+        double percent = (double) completed / total * 100;
         percent = Math.round(percent * 100) / 100.0;
 
         return new StatusReport(total, completed, pending, percent, userTaskSummary);
+    }
+
+    public void generateAllProjectReports(Project[] projects) {
+        double totalCompletion = 0.0;
+        double averageCompletion = 0.0;
+        System.out.println("---------------------------------------------------------------------");
+        System.out.println("PROJECT ID | PROJECT NAME    | TASKS      | COMPLETED  | PROGRESS    ");
+        System.out.println("---------------------------------------------------------------------");
+        for (Project project: projects) {
+            StatusReport statusReport = generateProjectStatus(project);
+            totalCompletion += statusReport.getPercentageCompleted();
+            System.out.printf(
+                    "%-10s | %-15s | %-10s | %-10s | %-8.2f%%\n",
+                    project.getId(),
+                    project.getName(),
+                    statusReport.getTotalTasks(),
+                    statusReport.getCompletedTasks(),
+                    statusReport.getPercentageCompleted()
+            );
+        }
+        averageCompletion = totalCompletion / projects.length;
+        System.out.println("---------------------------------------------------------------------");
+        System.out.println("AVERAGE COMPLETION: " + averageCompletion + "%");
+        System.out.println("---------------------------------------------------------------------");
     }
 
     public double completedRate(Project project) {

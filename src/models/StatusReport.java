@@ -29,21 +29,4 @@ public class StatusReport {
     public double getPercentageCompleted() { return percentageCompleted; }
     public Map<String, Integer> getUserTaskSummary() { return userTaskSummary; }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Total Tasks   : ").append(totalTasks).append("\n");
-        sb.append("Completed     : ").append(completedTasks).append("\n");
-        sb.append("Pending       : ").append(pendingTasks).append("\n");
-        sb.append("Progress (%)  : ").append(percentageCompleted).append("\n");
-
-        if (userTaskSummary != null && !userTaskSummary.isEmpty()) {
-            sb.append("Per-User Task Completion:\n");
-            for (Map.Entry<String, Integer> entry : userTaskSummary.entrySet()) {
-                sb.append(" - ").append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
-            }
-        }
-
-        return sb.toString();
-    }
 }

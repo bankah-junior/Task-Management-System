@@ -2,6 +2,8 @@ package services;
 
 import models.Project;
 
+import java.util.Arrays;
+
 public class ProjectService {
 
     private Project[] projects;
@@ -139,5 +141,9 @@ public class ProjectService {
             if (projects[i].getId() == id) return projects[i];
         }
         return null;
+    }
+
+    public Project[] getProjects() {
+        return Arrays.copyOf(projects, size);
     }
 }
