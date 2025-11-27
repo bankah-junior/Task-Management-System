@@ -63,7 +63,7 @@ public abstract class Project {
     // DISPLAY PROJECT
     // =========================
     public void displayProject() {
-        System.out.println("--------------------------------------------------");
+        System.out.println("\n--------------------------------------------------");
         System.out.println("Project ID   : " + id);
         System.out.println("Name         : " + name);
         System.out.println("Team Size    : " + teamSize);
@@ -71,6 +71,10 @@ public abstract class Project {
         System.out.println("Description  : " + description);
         System.out.println("Type         : " + getProjectDetails());
         System.out.println("--------------------------------------------------");
+    }
+
+    public void displayProjectHorizontal() {
+        System.out.printf("%s  | %s  | %s  |   %s   |   $%s  | %s\n", id, name, getProjectDetails(), teamSize, budget, description);
     }
 
     // =========================
@@ -111,12 +115,19 @@ public abstract class Project {
             return;
         }
 
+        System.out.println("\n=======================================");
         System.out.println("Tasks for Project: " + getName());
         System.out.println("=======================================");
 
+        System.out.println("\n--------------------------------------------------");
+        System.out.println("ID    | TASK NAME         | STATUS");
+        System.out.println("--------------------------------------------------");
         for (int i = 0; i < taskCount; i++) {
-            tasks[i].displayTask();
+            tasks[i].displayTaskHorizontal();
         }
+        System.out.println("--------------------------------------------------");
+        System.out.println("Total Tasks: " + taskCount);
+        System.out.println("--------------------------------------------------");
     }
 
     public Task[] getTasks() {

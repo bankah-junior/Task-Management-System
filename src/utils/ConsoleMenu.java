@@ -5,6 +5,7 @@ import services.ProjectService;
 import services.TaskService;
 import services.UserService;
 import services.ReportService;
+import utils.ValidationUtils;
 import models.*;
 
 public class ConsoleMenu {
@@ -36,15 +37,17 @@ public class ConsoleMenu {
             switch (choice) {
                 case 1 -> projectMenu();
                 case 2 -> taskMenu();
-                case 3 -> userMenu();
-                case 4 -> reportMenu();
+                case 3 -> reportMenu();
+                case 4 -> login();
                 case 5 -> System.out.println("Exiting... Goodbye!");
             }
         } while (choice != 5);
     }
 
     private void login() {
-        System.out.println("==== Task Management System Login ====");
+        System.out.println("\n==============================================");
+        System.out.println("||  JAVA PROJECT MANAGEMENT SYSTEM (LOGIN)  ||");
+        System.out.println("==============================================");
         userService.displayUsers();
         System.out.print("Enter your User ID to login: ");
         int userId = Integer.parseInt(scanner.nextLine());
@@ -57,12 +60,18 @@ public class ConsoleMenu {
 
     // Main menu
     private void displayMainMenu() {
-        System.out.println("\n==== Main Menu ====");
-        System.out.println("1. Project Operations");
-        System.out.println("2. Task Operations");
-        System.out.println("3. User Management");
-        System.out.println("4. Reports");
-        System.out.println("5. Exit");
+        System.out.println("\n======================================");
+        System.out.println("||  JAVA PROJECT MANAGEMENT SYSTEM  ||");
+        System.out.println("======================================");
+        System.out.println("\nCurrent User: " + loggedInUser.getName() + " (" + loggedInUser.getRole() + ")");
+        System.out.println("\nMain Menu");
+        System.out.println("---------");
+        System.out.println("1. Manage Project");
+        System.out.println("2. Manage Tasks");
+        System.out.println("3. View Status Reports");
+//        System.out.println("4. Manage Users");
+        System.out.println("4. Switch User");
+        System.out.println("6. Exit");
     }
 
     private int getMenuChoice() {
@@ -75,7 +84,7 @@ public class ConsoleMenu {
                 continue;
             }
             choice = Integer.parseInt(input);
-            if (choice < 1 || choice > 5) System.out.println("Choice must be 1-5.");
+            if (choice < 1 || choice > 5) System.out.println("Invalid option! \nChoice must be 1-5.");
             else break;
         }
         return choice;
@@ -83,40 +92,44 @@ public class ConsoleMenu {
 
     // ------------------- Project submenu -------------------
     private void projectMenu() {
-        System.out.println("\n-- Project Menu --");
-        System.out.println("1. Add Project (Admin Only)");
-        System.out.println("2. Update Project (Admin Only)");
-        System.out.println("3. Delete Project (Admin Only)");
-        System.out.println("4. View All Projects");
-        System.out.println("5. Filter by Type");
-        System.out.println("6. Back");
+        System.out.println("\n======================================");
+        System.out.println("||          PROJECT CATALOG         ||");
+        System.out.println("======================================");
+        System.out.println("\nFilter options: ");
+        System.out.println("1. View All Projects (" + projectService.getSize() + ")");
+        System.out.println("2. Software Projects Only");
+        System.out.println("3. Hardware Projects Only");
+        System.out.println("4. Search by Budget range");
+        System.out.println("5. Back");
 
         int choice = Integer.parseInt(scanner.nextLine());
         switch (choice) {
             case 1 -> {
-                if (!loggedInUser.getRole().equals("ADMIN")) {
-                    System.out.println("Access denied!");
+                projectService.displayAllProjects();
+                System.out.print("\nEnter project id to view details (or 0 to return): ");
+                int projectId = scanner.nextInt();
+                if (projectId > 0) {
+                    Project project = projectService.getProjectById(projectId);
+                    project.displayProject();
+                    project.displayAllTasks();
+                    System.out.println("Completion Rate: " + reportService.completedRate(project) + "%\n");
+                } else if (projectId < 0) {
+                    System.out.println("Invalid input!!");
+                } else {
                     return;
                 }
-                addProject();
+                taskMenu();
             }
-            case 2 -> {
-                if (!loggedInUser.getRole().equals("ADMIN")) {
-                    System.out.println("Access denied!");
-                    return;
-                }
-                updateProject();
+            case 2 -> projectService.filterByType("Software Project");
+            case 3 -> projectService.filterByType("Hardware Project");
+            case 4 -> {
+                System.out.print("Enter minimum budget: ");
+                int min = scanner.nextInt();
+                System.out.print("Enter maximum budget: ");
+                int max = scanner.nextInt();
+                projectService.searchByBudget(min,max);
             }
-            case 3 -> {
-                if (!loggedInUser.getRole().equals("ADMIN")) {
-                    System.out.println("Access denied!");
-                    return;
-                }
-                deleteProject();
-            }
-            case 4 -> projectService.displayAllProjects();
-            case 5 -> filterProjectByType();
-            case 6 -> { return; }
+            case 5 -> { return; }
         }
     }
 
@@ -169,13 +182,16 @@ public class ConsoleMenu {
         System.out.println("\n-- Task Menu --");
         System.out.println("1. Add Task");
         System.out.println("2. Update Task");
-        System.out.println("3. Delete Task");
-        System.out.println("4. View Tasks of a Project");
-        System.out.println("5. Back");
+        System.out.println("3. Remove Task");
+        System.out.println("4. Back");
 
-        int choice = Integer.parseInt(scanner.nextLine());
-        System.out.print("Enter Project ID: ");
-        int projectId = Integer.parseInt(scanner.nextLine());
+        System.out.print("Enter your choice: ");
+        int choice = scanner.nextInt();
+        int projectId = 0;
+        if (choice != 4) {
+            System.out.print("Enter Project ID: ");
+            projectId = scanner.nextInt();
+        }
         Project project = projectService.getProjectById(projectId);
         if (project == null) {
             System.out.println("Project not found!");
@@ -187,7 +203,8 @@ public class ConsoleMenu {
                 System.out.print("Task Name: "); String name = scanner.nextLine();
                 System.out.print("Status (TODO, IN_PROGRESS, COMPLETED): ");
                 TaskStatus status = TaskStatus.valueOf(scanner.nextLine().toUpperCase());
-                taskService.addTaskToProject(project, name, status, loggedInUser);
+                int hours = scanner.nextInt();
+                taskService.addTaskToProject(project, name, status, loggedInUser, hours);
             }
             case 2 -> {
                 System.out.print("Task ID to update: "); int taskId = Integer.parseInt(scanner.nextLine());
@@ -201,8 +218,7 @@ public class ConsoleMenu {
                 System.out.print("Task ID to delete: "); int taskId = Integer.parseInt(scanner.nextLine());
                 taskService.deleteTask(project, taskId);
             }
-            case 4 -> project.displayAllTasks();
-            case 5 -> { return; }
+            case 4 -> { return; }
         }
     }
 

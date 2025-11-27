@@ -37,31 +37,31 @@ public class Main {
 
         // ----------------- Add sample tasks -----------------
         // Tasks for Project Alpha
-        taskService.addTaskToProject(p1, "Design UI", TaskStatus.TODO, regular1);
-        taskService.addTaskToProject(p1, "Develop Backend", TaskStatus.IN_PROGRESS, regular2);
-        taskService.addTaskToProject(p1, "Write Unit Tests", TaskStatus.TODO, regular1);
+        taskService.addTaskToProject(p1, "Design UI", TaskStatus.TODO, regular1, 5);
+        taskService.addTaskToProject(p1, "Develop Backend", TaskStatus.IN_PROGRESS, regular2, 5);
+        taskService.addTaskToProject(p1, "Write Unit Tests", TaskStatus.TODO, regular1, 5);
 
         // Tasks for Project Beta
-        taskService.addTaskToProject(p2, "Setup Hardware Lab", TaskStatus.TODO, regular2);
-        taskService.addTaskToProject(p2, "Assemble Prototype", TaskStatus.IN_PROGRESS, regular1);
+        taskService.addTaskToProject(p2, "Setup Hardware Lab", TaskStatus.TODO, regular2, 5);
+        taskService.addTaskToProject(p2, "Assemble Prototype", TaskStatus.IN_PROGRESS, regular1, 5);
 
         // Tasks for Project Gamma
-        taskService.addTaskToProject(p3, "Create Wireframes", TaskStatus.TODO, regular1);
-        taskService.addTaskToProject(p3, "Implement Frontend", TaskStatus.TODO, regular2);
-        taskService.addTaskToProject(p3, "Setup Backend Server", TaskStatus.TODO, regular2);
+        taskService.addTaskToProject(p3, "Create Wireframes", TaskStatus.TODO, regular1, 5);
+        taskService.addTaskToProject(p3, "Implement Frontend", TaskStatus.TODO, regular2, 5);
+        taskService.addTaskToProject(p3, "Setup Backend Server", TaskStatus.TODO, regular2, 5);
 
         // Tasks for Project Delta
-        taskService.addTaskToProject(p4, "Procure Sensors", TaskStatus.TODO, regular1);
-        taskService.addTaskToProject(p4, "Assemble Circuit Boards", TaskStatus.IN_PROGRESS, regular2);
+        taskService.addTaskToProject(p4, "Procure Sensors", TaskStatus.TODO, regular1, 5);
+        taskService.addTaskToProject(p4, "Assemble Circuit Boards", TaskStatus.IN_PROGRESS, regular2, 5);
 
         // Tasks for Project Epsilon
-        taskService.addTaskToProject(p5, "Design Characters", TaskStatus.TODO, regular1);
-        taskService.addTaskToProject(p5, "Program Game Mechanics", TaskStatus.TODO, regular2);
+        taskService.addTaskToProject(p5, "Design Characters", TaskStatus.TODO, regular1, 5);
+        taskService.addTaskToProject(p5, "Program Game Mechanics", TaskStatus.TODO, regular2, 5);
 
         // Tasks for Project Zeta
-        taskService.addTaskToProject(p6, "Build Robot Frame", TaskStatus.TODO, regular1);
-        taskService.addTaskToProject(p6, "Install Motors", TaskStatus.TODO, regular2);
-        taskService.addTaskToProject(p6, "Test Movement", TaskStatus.TODO, regular2);
+        taskService.addTaskToProject(p6, "Build Robot Frame", TaskStatus.TODO, regular1, 5);
+        taskService.addTaskToProject(p6, "Install Motors", TaskStatus.TODO, regular2, 5);
+        taskService.addTaskToProject(p6, "Test Movement", TaskStatus.TODO, regular2, 5);
 
         // ----------------- Start Menu -----------------
         ConsoleMenu menu = new ConsoleMenu(projectService, taskService, userService, reportService);

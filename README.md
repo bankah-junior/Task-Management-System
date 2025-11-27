@@ -46,29 +46,34 @@ This is a simple **Task Management System** built in Java using **OOP concepts**
 
 ## Project Structure
 
-src/
-├─ models/
-│ ├─ Project.java
-│ ├─ SoftwareProject.java
-│ ├─ HardwareProject.java
-│ ├─ Task.java
-│ ├─ TaskStatus.java
-│ ├─ User.java
-│ ├─ AdminUser.java
-│ ├─ RegularUser.java
-│ └─ StatusReport.java
-├─ services/
-│ ├─ ProjectService.java
-│ ├─ TaskService.java
-│ ├─ UserService.java
-│ └─ ReportService.java
-├─ utils/
-│ ├─ ConsoleMenu.java
-│ └─ ValidationUtils.java
-└─ Main.java
-
-yaml
-Copy code
+```
+├── 📁 src
+│   ├── 📁 interfaces
+│   │   └── ☕ Completable.java
+│   ├── 📁 models
+│   │   ├── ☕ AdminUser.java
+│   │   ├── ☕ HardwareProject.java
+│   │   ├── ☕ Project.java
+│   │   ├── ☕ RegularUser.java
+│   │   ├── ☕ SoftwareProject.java
+│   │   ├── ☕ StatusReport.java
+│   │   ├── ☕ Task.java
+│   │   └── ☕ User.java
+│   ├── 📁 services
+│   │   ├── ☕ ProjectService.java
+│   │   ├── ☕ ReportService.java
+│   │   ├── ☕ TaskService.java
+│   │   └── ☕ UserService.java
+│   ├── 📁 utils
+│   │   ├── ☕ ConsoleMenu.java
+│   │   ├── ☕ TaskStatus.java
+│   │   └── ☕ ValidationUtils.java
+│   └── ☕ Main.java
+├── ⚙️ .gitignore
+├── 📝 README.md
+├── 📝 THOUGHT_PROCESS.md
+└── 📄 TMS.iml
+```
 
 ---
 

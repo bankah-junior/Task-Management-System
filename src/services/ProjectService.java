@@ -30,9 +30,15 @@ public class ProjectService {
             System.out.println("No projects available.");
             return;
         }
+        System.out.println("---------------------------------------------------------------------");
+        System.out.println("ID  | PROJECT NAME  | TYPE  |   TEAM SIZE   |   BUDGET  | DESCRIPTION");
+        System.out.println("---------------------------------------------------------------------");
         for (int i = 0; i < size; i++) {
-            projects[i].displayProject();
+            projects[i].displayProjectHorizontal();
         }
+        System.out.println("--------------------------------------------------");
+        System.out.println("Total Projects: " + getSize());
+        System.out.println("--------------------------------------------------");
     }
 
     // Filter projects by type

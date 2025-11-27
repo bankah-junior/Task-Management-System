@@ -10,7 +10,7 @@ public class TaskService {
     private int nextTaskId = 1; // auto-incrementing task IDs
 
     // Add Task to Project
-    public void addTaskToProject(Project project, String taskName, TaskStatus status, User assignedUser) {
+    public void addTaskToProject(Project project, String taskName, TaskStatus status, User assignedUser, int hours) {
 
         // Prevent duplicate names in the project
         for (int i = 0; i < project.getTaskCount(); i++) {
@@ -21,7 +21,7 @@ public class TaskService {
             }
         }
 
-        Task task = new Task(nextTaskId++, taskName, status);
+        Task task = new Task(nextTaskId++, taskName, status, hours);
 
         // Optional: assign a user (if we extend Task to store User)
         if (assignedUser != null) {

@@ -75,7 +75,6 @@ public class UserService {
     public User login(int userId) {
         for (User u : users) {
             if (u.getId() == userId) {
-                System.out.println("Welcome, " + u.getName() + " [" + u.getRole() + "]");
                 return u;
             }
         }

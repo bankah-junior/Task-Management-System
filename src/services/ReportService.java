@@ -49,4 +49,33 @@ public class ReportService {
 
         return new StatusReport(total, completed, pending, percent, userTaskSummary);
     }
+
+    public double completedRate(Project project) {
+        if (project == null) {
+            throw new IllegalArgumentException("Project cannot be null.");
+        }
+
+        Task[] tasks = project.getTasks();
+        int total = project.getTaskCount();
+
+        if (tasks == null || total == 0) {
+            return 0.00;
+        }
+
+        int completed = 0;
+
+        for (int i = 0; i < total; i++) {
+            Task t = tasks[i];
+            if (t != null) {
+                if (t.isCompleted()) {
+                    completed++;
+                }
+            }
+        }
+
+        double percent = (double) completed / total * 100;
+        percent = Math.round(percent * 100) / 100.0;
+
+        return percent;
+    }
 }
