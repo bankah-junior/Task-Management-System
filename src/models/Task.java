@@ -30,10 +30,6 @@ public class Task implements Completable {
     public void setHours(int hours) { this.hours = hours; }
 
     @Override
-    public void markComplete() {
-    }
-
-    @Override
     public boolean isCompleted() { return status == TaskStatus.COMPLETED; }
 
     public void displayTask() {

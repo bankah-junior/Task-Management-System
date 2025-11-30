@@ -9,7 +9,6 @@ public class TaskService {
 
     private int nextTaskId = 1; // auto-incrementing task IDs
 
-    // Add Task to Project
     public void addTaskToProject(Project project, String taskName, TaskStatus status, User assignedUser, int hours) {
 
         // Prevent duplicate names in the project
@@ -28,10 +27,13 @@ public class TaskService {
             task.setAssignedUser(assignedUser);
         }
 
-        project.addTask(task);
+        if (project.addTask(task)){
+            System.out.println("Task Added Successfully!");
+        } else {
+            System.out.println("Failed To Add Task!!");
+        }
     }
 
-    // Update Task (status or name)
     public void updateTask(Project project, int taskId, String newName, TaskStatus newStatus) {
         Task task = project.getTaskById(taskId);
         if (task == null) {
@@ -50,7 +52,6 @@ public class TaskService {
         System.out.println("Task updated successfully!");
     }
 
-    // Delete Task
     public void deleteTask(Project project, int taskId) {
         Task[] tasks = project.getTasks();
         int count = project.getTaskCount();

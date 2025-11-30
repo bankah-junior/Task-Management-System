@@ -8,7 +8,6 @@ import utils.TaskStatus;
 
 public class Main {
     public static void main(String[] args) {
-
         // ----------------- Initialize Services -----------------
         ProjectService projectService = new ProjectService(20); // max 20 projects
         TaskService taskService = new TaskService();

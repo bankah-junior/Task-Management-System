@@ -93,18 +93,19 @@ This is a simple **Task Management System** built in Java using **OOP concepts**
     - Admins have full access; Regular users have limited permissions.
 
 2. **Main Menu**
-    - 1: Project Operations
-    - 2: Task Operations
-    - 3: User Management (Admin only)
-    - 4: Reports
-    - 5: Exit
+    - 1: Manage Projects
+    - 2: Manage Tasks 
+    - 3: Manage Users
+    - 4: View Status Reports
+    - 5: Switch User
+    - 6: Exit
 
 3. **Submenus**
     - Follow prompts to add, update, delete, view projects/tasks/users.
     - Use correct input types (numbers, strings, valid statuses).
 
 4. **Exit**
-    - Select `5` from the main menu to exit the application gracefully.
+    - Select `6` from the main menu to exit the application gracefully.
 
 ---
 

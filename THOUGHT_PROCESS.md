@@ -80,5 +80,3 @@ The system now fully supports:
 - User management with role-based permissions
 - Status reporting with completion metrics
 - Interactive console menu for easy navigation
-
-The architecture allows for future extensions, including database integration and advanced reporting.

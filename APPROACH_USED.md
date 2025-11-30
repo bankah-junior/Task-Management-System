@@ -32,11 +32,11 @@ NOTE:
 	- StatusReport: totalTasks, completedTasks, pendingTasks, percentageCompleted
 
 ### 2. Interfaces:
-	- Completable: markComplete(), isCompleted();
+	- Completable: isCompleted();
 
 ### 3. Utils:
 	- TaskStatus(ENUM): TODO, IN_PROGRESS, COMPLETED
-	- ValidationUtils: isValidNumber(), isValidInt(), isValidRange(), isValidName(), isValidEmail(), requireNonEmpty(), isInteger(), isDouble(), isValidTaskName()
+	- ValidationUtils: isValidRange(), isValidName(), isValidEmail(), isInteger(), isDouble()
 	- ConsoleMenu: ProjectMenu, TaskMenu, UserMenu, ReportMenu
 
 ### 4. Services:

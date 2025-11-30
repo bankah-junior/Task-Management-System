@@ -17,20 +17,25 @@ public class UserService {
         users = new ArrayList<>();
     }
 
-    // Create user
+    public List<User> getUsers() {
+        return users;
+    }
+
     public User createUser(String name, String email, String role) {
         User user = null;
         if ("ADMIN".equalsIgnoreCase(role)) {
             user = new AdminUser(name, email);
-        } else {
+        } else if ("REGULAR_USER".equalsIgnoreCase(role)) {
             user = new RegularUser(name, email);
+        } else {
+            System.out.println("Enter a valid role!!!");
+            return user;
         }
         users.add(user);
         System.out.println("User created: " + user);
         return user;
     }
 
-    // View all users
     public void displayUsers() {
         if (users.isEmpty()) {
             System.out.println("No users found.");
@@ -48,7 +53,6 @@ public class UserService {
         System.out.println("---------------------------------------------------------------");
     }
 
-    // Delete user by ID
     public boolean deleteUser(int userId) {
         for (User u : users) {
             if (u.getId() == userId) {
@@ -61,7 +65,6 @@ public class UserService {
         return false;
     }
 
-    // Assign user to project
     public void assignUserToProject(User user, Project project) {
         if (user != null && project != null) {
             user.assignProject(project);
@@ -69,7 +72,6 @@ public class UserService {
         }
     }
 
-    // Assign user to task
     public void assignUserToTask(User user, Task task) {
         if (user != null && task != null) {
             user.assignTask(task);
@@ -78,7 +80,6 @@ public class UserService {
         }
     }
 
-    // Simple login (by user ID)
     public User login(int userId) {
         for (User u : users) {
             if (u.getId() == userId) {

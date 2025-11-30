@@ -8,7 +8,6 @@ public class StatusReport {
     private int pendingTasks;
     private double percentageCompleted;
 
-    // Optional: per-user completed tasks summary
     private Map<String, Integer> userTaskSummary;
 
     // METHOD OVERLOAD

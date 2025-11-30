@@ -39,7 +39,6 @@ public abstract class Project {
     public void setTeamSize(int teamSize) { this.teamSize = teamSize; }
     public void setBudget(double budget) { this.budget = budget; }
 
-
     // ABSTRACT METHOD
     public abstract String getProjectDetails();
 
