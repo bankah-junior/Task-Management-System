@@ -25,7 +25,7 @@ public class ConsoleMenu {
     }
 
     public void start() {
-        login(); // simple user login
+        login();
 
         int choice;
         do {

@@ -19,7 +19,6 @@ public abstract class Project {
         this.teamSize = teamSize;
     }
 
-    // GETTERS
     public int getId() {
         return id;
     }
@@ -33,13 +32,11 @@ public abstract class Project {
         return teamSize;
     }
 
-    // SETTERS
     public void setName(String name) { this.name = name; }
     public void setDescription(String description) { this.description = description; }
     public void setTeamSize(int teamSize) { this.teamSize = teamSize; }
     public void setBudget(double budget) { this.budget = budget; }
 
-    // ABSTRACT METHOD
     public abstract String getProjectDetails();
 
     public void displayProject() {

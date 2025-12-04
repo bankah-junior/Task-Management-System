@@ -10,7 +10,6 @@ public class StatusReport {
 
     private Map<String, Integer> userTaskSummary;
 
-    // METHOD OVERLOAD
     public StatusReport(int totalTasks, int completedTasks, int pendingTasks, double percentageCompleted) {
         this.totalTasks = totalTasks;
         this.completedTasks = completedTasks;

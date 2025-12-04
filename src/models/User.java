@@ -23,7 +23,6 @@ public abstract class User {
         this.assignedTasks = new ArrayList<>();
     }
 
-    // Getters
     public int getId() { return id; }
     public String getName() { return name; }
     public String getEmail() { return email; }
@@ -31,14 +30,12 @@ public abstract class User {
     public List<Project> getAssignedProjects() { return assignedProjects; }
     public List<Task> getAssignedTasks() { return assignedTasks; }
 
-    // Assign project
     public void assignProject(Project project) {
         if (!assignedProjects.contains(project)) {
             assignedProjects.add(project);
         }
     }
 
-    // Assign task
     public void assignTask(Task task) {
         if (!assignedTasks.contains(task)) {
             assignedTasks.add(task);
@@ -53,7 +50,6 @@ public abstract class User {
         assignedTasks.remove(task);
     }
 
-    // Abstract method for role behavior
     public abstract void displayPermissions();
 
     @Override
