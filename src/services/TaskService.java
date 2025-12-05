@@ -4,6 +4,7 @@ import models.Project;
 import models.Task;
 import models.User;
 import utils.TaskStatus;
+import utils.exceptions.TaskNotFoundException;
 
 public class TaskService {
 
@@ -80,7 +81,6 @@ public class TaskService {
                 return t;
             }
         }
-        System.out.println("Task ID not found.");
-        return null;
+        throw new TaskNotFoundException("Task with ID " + taskId + " not found.");
     }
 }

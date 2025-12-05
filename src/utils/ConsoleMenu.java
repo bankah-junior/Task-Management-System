@@ -6,6 +6,7 @@ import services.TaskService;
 import services.UserService;
 import services.ReportService;
 import models.*;
+import utils.exceptions.TaskNotFoundException;
 
 public class ConsoleMenu {
 
@@ -335,7 +336,11 @@ public class ConsoleMenu {
                         return;
                     }
                 }
-                taskService.updateTask(project, taskId, newName.isEmpty() ? null : newName, newStatus);
+                try {
+                    taskService.updateTask(project, taskId, newName.isEmpty() ? null : newName, newStatus);
+                } catch (TaskNotFoundException e) {
+                    System.out.println(e.getMessage());
+                }
             }
             case 3 -> {
                 System.out.print("Task ID to delete: ");
@@ -371,7 +376,6 @@ public class ConsoleMenu {
         int choice = getMenuChoice(6);
         switch (choice) {
             case 1 -> {
-                scanner.nextLine();
                 System.out.print("Name: ");
                 String name = scanner.nextLine();
                 if (!ValidationUtils.isValidName(name)) {

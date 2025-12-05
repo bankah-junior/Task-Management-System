@@ -11,10 +11,16 @@ public class ValidationUtils {
     }
 
     public static boolean isValidEmail(String email) {
-        return email != null &&
-                email.contains("@") &&
-                email.contains(".") &&
-                email.length() >= 5;
+        if (email == null || email.trim().isEmpty()) return false;
+
+        try {
+            int atIndex = email.indexOf('@');
+            int dotIndex = email.lastIndexOf('.');
+
+            return atIndex > 0 && dotIndex > atIndex + 1 && dotIndex < email.length() - 1;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public static boolean isInteger(String input) {
