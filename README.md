@@ -47,32 +47,54 @@ This is a simple **Task Management System** built in Java using **OOP concepts**
 ## Project Structure
 
 ```
+├── 📁 .mvn
 ├── 📁 src
-│   ├── 📁 interfaces
-│   │   └── ☕ Completable.java
-│   ├── 📁 models
-│   │   ├── ☕ AdminUser.java
-│   │   ├── ☕ HardwareProject.java
-│   │   ├── ☕ Project.java
-│   │   ├── ☕ RegularUser.java
-│   │   ├── ☕ SoftwareProject.java
-│   │   ├── ☕ StatusReport.java
-│   │   ├── ☕ Task.java
-│   │   └── ☕ User.java
-│   ├── 📁 services
-│   │   ├── ☕ ProjectService.java
-│   │   ├── ☕ ReportService.java
-│   │   ├── ☕ TaskService.java
-│   │   └── ☕ UserService.java
-│   ├── 📁 utils
-│   │   ├── ☕ ConsoleMenu.java
-│   │   ├── ☕ TaskStatus.java
-│   │   └── ☕ ValidationUtils.java
-│   └── ☕ Main.java
+│   ├── 📁 main
+│   │   ├── 📁 java
+│   │   │   └── 📁 com
+│   │   │       └── 📁 amalitech
+│   │   │           ├── 📁 interfaces
+│   │   │           │   └── ☕ Completable.java
+│   │   │           ├── 📁 models
+│   │   │           │   ├── ☕ AdminUser.java
+│   │   │           │   ├── ☕ HardwareProject.java
+│   │   │           │   ├── ☕ Project.java
+│   │   │           │   ├── ☕ RegularUser.java
+│   │   │           │   ├── ☕ SoftwareProject.java
+│   │   │           │   ├── ☕ StatusReport.java
+│   │   │           │   ├── ☕ Task.java
+│   │   │           │   └── ☕ User.java
+│   │   │           ├── 📁 services
+│   │   │           │   ├── ☕ ProjectService.java
+│   │   │           │   ├── ☕ ReportService.java
+│   │   │           │   ├── ☕ TaskService.java
+│   │   │           │   └── ☕ UserService.java
+│   │   │           ├── 📁 utils
+│   │   │           │   ├── 📁 exceptions
+│   │   │           │   │   ├── ☕ EmptyProjectException.java
+│   │   │           │   │   ├── ☕ InvalidInputException.java
+│   │   │           │   │   └── ☕ TaskNotFoundException.java
+│   │   │           │   ├── ☕ ConsoleMenu.java
+│   │   │           │   ├── ☕ TaskStatus.java
+│   │   │           │   └── ☕ ValidationUtils.java
+│   │   │           └── ☕ Main.java
+│   │   └── 📁 resources
+│   └── 📁 test
+│       └── 📁 java
+│           └── 📁 com
+│               └── 📁 amalitech
+│                   └── 📁 services
+│                       ├── ☕ ProjectServiceTest.java
+│                       ├── ☕ ReportServiceTest.java
+│                       ├── ☕ TaskServiceTest.java
+│                       └── ☕ UserServiceTest.java
 ├── ⚙️ .gitignore
+├── 📝 APPROACH_USED.md
 ├── 📝 README.md
 ├── 📝 THOUGHT_PROCESS.md
-└── 📄 TMS.iml
+├── 📄 TaskManagementSystem.drawio
+├── 🖼️ TaskManagementSystem.png
+└── ⚙️ pom.xml
 ```
 
 ---
