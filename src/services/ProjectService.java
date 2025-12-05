@@ -1,6 +1,7 @@
 package services;
 
 import models.Project;
+import utils.exceptions.EmptyProjectException;
 
 import java.util.Arrays;
 
@@ -28,8 +29,7 @@ public class ProjectService {
 
     public void displayAllProjects() {
         if (size == 0) {
-            System.out.println("No projects available.");
-            return;
+            throw new EmptyProjectException("No projects available in the system.");
         }
         System.out.println("--------------------------------------------------------------------------------------");
         System.out.println("ID   | PROJECT NAME         | TYPE             | TEAM SIZE  |   BUDGET   | DESCRIPTION");

@@ -6,6 +6,7 @@ import services.TaskService;
 import services.UserService;
 import services.ReportService;
 import models.*;
+import utils.exceptions.EmptyProjectException;
 import utils.exceptions.TaskNotFoundException;
 
 public class ConsoleMenu {
@@ -137,7 +138,12 @@ public class ConsoleMenu {
                 deleteProject();
             }
             case 4 -> {
-                projectService.displayAllProjects();
+                try {
+                    projectService.displayAllProjects();
+                } catch (EmptyProjectException e) {
+                    System.out.println(e.getMessage());
+                    return;
+                }
                 System.out.print("\nEnter project id to view details (or 0 to return): ");
                 int projectId = getMenuChoice(projectService.getSize());
                 if (projectId > 0) {
