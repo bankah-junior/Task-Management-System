@@ -7,6 +7,7 @@ import services.UserService;
 import services.ReportService;
 import models.*;
 import utils.exceptions.EmptyProjectException;
+import utils.exceptions.InvalidInputException;
 import utils.exceptions.TaskNotFoundException;
 
 public class ConsoleMenu {
@@ -213,13 +214,19 @@ public class ConsoleMenu {
             System.exit(0);
         }
         System.out.print("Budget: ");
-        double budget;
+        double budget = 0;
         String budgetInput = scanner.nextLine();
-        if (!ValidationUtils.isDouble(budgetInput)) {
-            System.out.println("Enter a valid number!");
+        try {
+            if (!ValidationUtils.isDouble(budgetInput)) {
+                System.out.println("Enter a valid number!");
+                System.exit(0);
+            } else {
+                budget = Integer.parseInt(budgetInput);
+            }
+        } catch (InvalidInputException e) {
+            System.out.println(e.getMessage());
             System.exit(0);
         }
-        budget = Integer.parseInt(budgetInput);
         if (budget < 0) {
             System.out.println("Budget cannot be negative!");
             System.exit(0);
@@ -390,8 +397,13 @@ public class ConsoleMenu {
                 }
                 System.out.print("Email: ");
                 String email = scanner.nextLine();
-                if (!ValidationUtils.isValidEmail(email)) {
-                    System.out.println("Enter a valid email!!");
+                try {
+                    if (!ValidationUtils.isValidEmail(email)) {
+                        System.out.println("Enter a valid email!!");
+                        System.exit(0);
+                    }
+                } catch (InvalidInputException e) {
+                    System.out.println(e.getMessage());
                     System.exit(0);
                 }
                 System.out.print("Role (ADMIN/REGULAR_USER): ");

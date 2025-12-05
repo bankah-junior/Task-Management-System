@@ -1,5 +1,7 @@
 package utils;
 
+import utils.exceptions.InvalidInputException;
+
 public class ValidationUtils {
 
     public static boolean isValidRange(double min, double max) {
@@ -19,7 +21,7 @@ public class ValidationUtils {
 
             return atIndex > 0 && dotIndex > atIndex + 1 && dotIndex < email.length() - 1;
         } catch (Exception e) {
-            return false;
+            throw new InvalidInputException("Invalid email format: " + email, e);
         }
     }
 
@@ -41,7 +43,7 @@ public class ValidationUtils {
             Double.parseDouble(input.trim());
             return true;
         } catch (NumberFormatException e) {
-            return false;
+            throw new InvalidInputException("Invalid double format: " + input);
         }
     }
 }
