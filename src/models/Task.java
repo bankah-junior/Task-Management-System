@@ -20,14 +20,11 @@ public class Task implements Completable {
 
     public int getId() { return id; }
     public String getName() { return name; }
-    public int getHours() { return hours; }
     public void setStatus(TaskStatus status) { this.status = status; }
-    public TaskStatus getStatus() { return status; }
     public User getAssignedUser() { return assignedUser; }
 
     public void setName(String name) { this.name = name; }
     public void setAssignedUser(User user) { this.assignedUser = user; }
-    public void setHours(int hours) { this.hours = hours; }
 
     @Override
     public boolean isCompleted() { return status == TaskStatus.COMPLETED; }

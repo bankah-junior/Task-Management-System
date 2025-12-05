@@ -28,9 +28,6 @@ public abstract class Project {
     public double getBudget() {
         return budget;
     }
-    public int getTeamSize() {
-        return teamSize;
-    }
 
     public void setName(String name) { this.name = name; }
     public void setDescription(String description) { this.description = description; }

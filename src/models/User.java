@@ -25,10 +25,7 @@ public abstract class User {
 
     public int getId() { return id; }
     public String getName() { return name; }
-    public String getEmail() { return email; }
     public String getRole() { return role; }
-    public List<Project> getAssignedProjects() { return assignedProjects; }
-    public List<Task> getAssignedTasks() { return assignedTasks; }
 
     public void assignProject(Project project) {
         if (!assignedProjects.contains(project)) {
@@ -40,14 +37,6 @@ public abstract class User {
         if (!assignedTasks.contains(task)) {
             assignedTasks.add(task);
         }
-    }
-
-    public void removeProject(Project project) {
-        assignedProjects.remove(project);
-    }
-
-    public void removeTask(Task task) {
-        assignedTasks.remove(task);
     }
 
     public abstract void displayPermissions();

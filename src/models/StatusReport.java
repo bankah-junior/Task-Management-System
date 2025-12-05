@@ -23,8 +23,6 @@ public class StatusReport {
 
     public int getTotalTasks() { return totalTasks; }
     public int getCompletedTasks() { return completedTasks; }
-    public int getPendingTasks() { return pendingTasks; }
     public double getPercentageCompleted() { return percentageCompleted; }
-    public Map<String, Integer> getUserTaskSummary() { return userTaskSummary; }
 
 }

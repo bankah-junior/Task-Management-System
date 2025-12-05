@@ -21,7 +21,7 @@ public class ValidationUtils {
 
             return atIndex > 0 && dotIndex > atIndex + 1 && dotIndex < email.length() - 1;
         } catch (Exception e) {
-            throw new InvalidInputException("Invalid email format: " + email, e);
+            throw new InvalidInputException("Invalid email format: " + email);
         }
     }
 
