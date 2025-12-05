@@ -21,6 +21,13 @@ public class UserService {
         return users;
     }
 
+    /**
+     * Creates a new user with the specified name, email, and role.
+     * @param name The name of the user.
+     * @param email The email of the user.
+     * @param role The role of the user (ADMIN or REGULAR_USER).
+     * @return The created User object.
+     */
     public User createUser(String name, String email, String role) {
         User user = null;
         if ("ADMIN".equalsIgnoreCase(role)) {
@@ -36,6 +43,9 @@ public class UserService {
         return user;
     }
 
+    /**
+     * Displays all users in the system.
+     */
     public void displayUsers() {
         if (users.isEmpty()) {
             System.out.println("No users found.");
@@ -53,6 +63,11 @@ public class UserService {
         System.out.println("---------------------------------------------------------------");
     }
 
+    /**
+     * Deletes a user from the system.
+     * @param userId The ID of the user to delete.
+     * @return true if the user was successfully deleted, false otherwise.
+     */
     public boolean deleteUser(int userId) {
         for (User u : users) {
             if (u.getId() == userId) {
@@ -65,6 +80,11 @@ public class UserService {
         return false;
     }
 
+     /**
+      * Assigns a user to a project.
+      * @param user The user to assign to the project.
+      * @param project The project to which the user will be assigned.
+      */
     public void assignUserToProject(User user, Project project) {
         if (user != null && project != null) {
             user.assignProject(project);
@@ -72,6 +92,11 @@ public class UserService {
         }
     }
 
+     /**
+      * Assigns a user to a task.
+      * @param user The user to assign to the task.
+      * @param task The task to which the user will be assigned.
+      */
     public void assignUserToTask(User user, Task task) {
         if (user != null && task != null) {
             user.assignTask(task);
@@ -80,6 +105,11 @@ public class UserService {
         }
     }
 
+    /**
+     * Logs in a user by their ID.
+     * @param userId The ID of the user to log in.
+     * @return The User object if found, null otherwise.
+     */
     public User login(int userId) {
         for (User u : users) {
             if (u.getId() == userId) {

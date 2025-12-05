@@ -27,18 +27,29 @@ public abstract class User {
     public String getName() { return name; }
     public String getRole() { return role; }
 
+     /**
+     * Assigns a project to the user.
+     * @param project The project to assign.
+     */
     public void assignProject(Project project) {
         if (!assignedProjects.contains(project)) {
             assignedProjects.add(project);
         }
     }
 
+    /**
+     * Assigns a task to the user.
+     * @param task The task to assign.
+     */
     public void assignTask(Task task) {
         if (!assignedTasks.contains(task)) {
             assignedTasks.add(task);
         }
     }
 
+     /**
+     * Displays the permissions of the user.
+     */
     public abstract void displayPermissions();
 
     @Override

@@ -9,6 +9,11 @@ import java.util.Map;
 
 public class ReportService {
 
+    /**
+     * Generates a status report for a project.
+     * @param project The project for which to generate the status report.
+     * @return A StatusReport object containing the project's task statistics.
+     */
     public StatusReport generateProjectStatus(Project project) {
 
         if (project == null) {
@@ -49,6 +54,10 @@ public class ReportService {
         return new StatusReport(total, completed, pending, percent, userTaskSummary);
     }
 
+    /**
+     * Generates status reports for all projects.
+     * @param projects The array of projects for which to generate status reports.
+     */
     public void generateAllProjectReports(Project[] projects) {
         double totalCompletion = 0.0;
         double averageCompletion = 0.0;
@@ -73,6 +82,11 @@ public class ReportService {
         System.out.println("---------------------------------------------------------------------");
     }
 
+    /**
+     * Calculates the completion rate of a project.
+     * @param project The project for which to calculate the completion rate.
+     * @return The completion rate of the project as a percentage.
+     */
     public double completedRate(Project project) {
         if (project == null) {
             throw new IllegalArgumentException("Project cannot be null.");
