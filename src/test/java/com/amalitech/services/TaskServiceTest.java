@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TaskServiceTest {
 
     @Test
-    void addTaskToProject() {
+    void testAddTaskToProject() {
         TaskService taskService = new TaskService();
         ProjectService projectService = new ProjectService(10);
         UserService userService = new UserService();
@@ -27,7 +27,7 @@ class TaskServiceTest {
     }
 
     @Test
-    void getTasksByProject() {
+    void testGetTasksByProject() {
         TaskService taskService = new TaskService();
         ProjectService projectService = new ProjectService(10);
         UserService userService = new UserService();
@@ -39,7 +39,7 @@ class TaskServiceTest {
     }
 
     @Test
-    void getTaskById() {
+    void testGetTaskById() {
         TaskService taskService = new TaskService();
         ProjectService projectService = new ProjectService(10);
         UserService userService = new UserService();
@@ -51,7 +51,7 @@ class TaskServiceTest {
     }
 
     @Test
-    void updateTask() {
+    void testUpdateTask() {
         TaskService taskService = new TaskService();
         ProjectService projectService = new ProjectService(10);
         UserService userService = new UserService();
@@ -67,7 +67,7 @@ class TaskServiceTest {
     }
 
     @Test
-    void deleteTask() {
+    void testDeleteTask() {
         TaskService taskService = new TaskService();
         ProjectService projectService = new ProjectService(10);
         UserService userService = new UserService();

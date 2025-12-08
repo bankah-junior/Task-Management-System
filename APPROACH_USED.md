@@ -17,8 +17,6 @@
 NOTE:
 * With the User Stories and the Features, most of the Workflows were covered because they gave me more clarity and understanding.
 
-
-
 ## Phase 2 (System Design)
 
 ### 1. Models:
@@ -46,4 +44,5 @@ NOTE:
 	- UserService: createUser(), displayUser(), deleteUser(), assignUserToProject(), assignUserToTask(), login()
 
 
-
+## Phase 3 (System Design Diagram)
+![System Design Diagram & Relationships](docs/TaskManagementSystem.png)

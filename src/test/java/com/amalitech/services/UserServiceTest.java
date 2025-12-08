@@ -27,8 +27,8 @@ class UserServiceTest {
         UserService userService = new UserService();
         var admin = userService.createUser("Alice", "alice@example.com", "ADMIN");
         var regular = userService.createUser("Bob", "bob@example.com", "REGULAR_USER");
-        assertTrue(userService.deleteUser(5));
-        assertFalse(userService.deleteUser(5));
+        assertTrue(userService.deleteUser(admin.getId()));
+        assertFalse(userService.deleteUser(admin.getId()));
     }
 
      @Test

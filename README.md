@@ -90,6 +90,7 @@ This is a simple **Task Management System** built in Java using **OOP concepts**
 │                       └── ☕ UserServiceTest.java
 ├── ⚙️ .gitignore
 ├── 📝 APPROACH_USED.md
+├── 🖼️ JUnit-Test-Results.png
 ├── 📝 README.md
 ├── 📝 THOUGHT_PROCESS.md
 ├── 📄 TaskManagementSystem.drawio
@@ -135,3 +136,21 @@ This is a simple **Task Management System** built in Java using **OOP concepts**
 - All IDs are auto-generated.
 - Maximum projects: 20; maximum tasks per project: 20.
 - All data is stored in memory (arrays, lists). Database integration can be added later.
+
+---
+
+## JUnit Test
+
+### Steps
+  1. Navigate into the `test folder`.
+  2. Right-click on the `java folder`.
+  3. Click on `Run All Tests`
+
+### Results
+![Results of JUnit test cases](docs/JUnit-Test-Results.png)
+
+## Git Commit Logs
+
+### Screenshot of some git commit logs
+
+![Screenshot of Git Commit Logs](docs/Commit-Logs.png)
