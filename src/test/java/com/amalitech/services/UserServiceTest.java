@@ -27,8 +27,8 @@ class UserServiceTest {
         UserService userService = new UserService();
         var admin = userService.createUser("Alice", "alice@example.com", "ADMIN");
         var regular = userService.createUser("Bob", "bob@example.com", "REGULAR_USER");
-        assertTrue(userService.deleteUser(1));
-        assertFalse(userService.deleteUser(1));
+        assertTrue(userService.deleteUser(5));
+        assertFalse(userService.deleteUser(5));
     }
 
      @Test
@@ -36,9 +36,9 @@ class UserServiceTest {
         UserService userService = new UserService();
         var admin = userService.createUser("Alice", "alice@example.com", "ADMIN");
         var regular = userService.createUser("Bob", "bob@example.com", "REGULAR_USER");
-        assertEquals(admin, userService.login(1));
-        assertEquals(regular, userService.login(2));
-        assertNull(userService.login(3));
+        assertEquals(admin, userService.login(admin.getId()));
+        assertEquals(regular, userService.login(regular.getId()));
+        assertNull(userService.login(10));
     }
 
     @Test
@@ -47,7 +47,7 @@ class UserServiceTest {
         var admin = userService.createUser("Alice", "alice@example.com", "ADMIN");
         var regular = userService.createUser("Bob", "bob@example.com", "REGULAR_USER");
         assertEquals(admin, userService.getUserById(admin.getId()));
-        assertEquals(regular, userService.getUserById(2));
+        assertEquals(regular, userService.getUserById(regular.getId()));
         assertNull(userService.getUserById(3));
     }
 
@@ -55,7 +55,7 @@ class UserServiceTest {
     void testUpdateUser() {
         UserService userService = new UserService();
         var admin = userService.createUser("Alice", "alice@example.com", "ADMIN");
-        userService.updateUser(1, "UpdatedAlice", "updated@example.com", "REGULAR_USER");
+        userService.updateUser(admin.getId(), "UpdatedAlice", "updated@example.com", "REGULAR_USER");
         assertEquals("UpdatedAlice", admin.getName());
         assertEquals("updated@example.com", admin.getEmail());
         assertEquals("REGULAR_USER", admin.getRole());
