@@ -20,22 +20,20 @@ public class Task implements Completable {
 
     public int getId() { return id; }
     public String getName() { return name; }
-    public void setStatus(TaskStatus status) { this.status = status; }
     public User getAssignedUser() { return assignedUser; }
+    public TaskStatus getStatus() {
+        return status;
+    }
 
     public void setName(String name) { this.name = name; }
     public void setAssignedUser(User user) { this.assignedUser = user; }
+    public void setStatus(TaskStatus status) { this.status = status; }
 
     /**
      * Marks the task as completed.
      */
     @Override
-    public boolean isCompleted() { return status == TaskStatus.COMPLETED; }
-
-     /**
-     * Displays the task details in a vertical format.
-     */
-    public void displayTask() {
-        System.out.printf("%-4d | %-20s | %-15s\n", id, name, status);
+    public boolean isCompleted() {
+        return status == TaskStatus.COMPLETED;
     }
 }

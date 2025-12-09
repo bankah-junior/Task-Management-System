@@ -28,6 +28,10 @@ public abstract class Project {
     public double getBudget() {
         return budget;
     }
+    public int getTeamSize() { return teamSize; }
+    public String getDescription() {
+        return description;
+    }
 
     public void setName(String name) { this.name = name; }
     public void setDescription(String description) { this.description = description; }
@@ -35,34 +39,6 @@ public abstract class Project {
     public void setBudget(double budget) { this.budget = budget; }
 
     public abstract String getProjectDetails();
-
-    /**
-     * Displays the project details in a vertical format.
-     */
-    public void displayProject() {
-        System.out.println("\n--------------------------------------------------");
-        System.out.println("Project ID   : " + id);
-        System.out.println("Name         : " + name);
-        System.out.println("Team Size    : " + teamSize);
-        System.out.println("Budget       : $" + budget);
-        System.out.println("Description  : " + description);
-        System.out.println("Type         : " + getProjectDetails());
-        System.out.println("--------------------------------------------------");
-    }
-     /**
-     * Displays the project details in a horizontal format.
-     */
-    public void displayProjectHorizontal() {
-        System.out.printf(
-                "%-4d | %-20s | %-15s | %-10d | $%-10.2f | %s\n",
-                id,
-                name,
-                getProjectDetails(),
-                teamSize,
-                budget,
-                description
-        );
-    }
 
      /**
      * Adds a new task to the project.
@@ -100,30 +76,6 @@ public abstract class Project {
             }
         }
         return null;
-    }
-
-    /**
-     * Displays all tasks associated with the project.
-     */
-    public void displayAllTasks() {
-        if (taskCount == 0) {
-            System.out.println("No tasks found for this project.");
-            return;
-        }
-
-        System.out.println("\n---------------------------------------");
-        System.out.println("Tasks for Project: " + getName());
-        System.out.println("---------------------------------------");
-
-        System.out.println("--------------------------------------------------");
-        System.out.println("ID   | TASK NAME            | STATUS");
-        System.out.println("--------------------------------------------------");
-        for (int i = 0; i < taskCount; i++) {
-            tasks[i].displayTask();
-        }
-        System.out.println("--------------------------------------------------");
-        System.out.println("Total Tasks: " + taskCount);
-        System.out.println("--------------------------------------------------");
     }
 
      /**

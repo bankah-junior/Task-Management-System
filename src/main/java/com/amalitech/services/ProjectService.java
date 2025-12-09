@@ -39,7 +39,7 @@ public class ProjectService {
         System.out.println("ID   | PROJECT NAME         | TYPE             | TEAM SIZE  |   BUDGET   | DESCRIPTION");
         System.out.println("--------------------------------------------------------------------------------------");
         for (int i = 0; i < size; i++) {
-            projects[i].displayProjectHorizontal();
+            displayProjectHorizontal(projects[i]);
         }
         System.out.println("--------------------------------------------------------------------------------------");
         System.out.println("Total Projects: " + getSize());
@@ -58,7 +58,8 @@ public class ProjectService {
 
         for (int i = 0; i < size; i++) {
             if (projects[i].getProjectDetails().equalsIgnoreCase(type)) {
-                projects[i].displayProjectHorizontal();
+                displayProjectHorizontal(projects[i]);
+
                 found = true;
             }
         }
@@ -80,7 +81,7 @@ public class ProjectService {
         for (int i = 0; i < size; i++) {
             double budget = projects[i].getBudget();
             if (budget >= min && budget <= max) {
-                projects[i].displayProjectHorizontal();
+                displayProjectHorizontal(projects[i]);
                 found = true;
             }
         }
@@ -167,5 +168,55 @@ public class ProjectService {
       */
     public Project[] getProjects() {
         return Arrays.copyOf(projects, size);
+    }
+
+    /**
+     * Displays all tasks associated with the project.
+     */
+    public void displayAllTasks(Project project) {
+        if (project.getTaskCount() == 0) {
+            System.out.println("No tasks found for this project.");
+            return;
+        }
+
+        System.out.println("\n---------------------------------------");
+        System.out.println("Tasks for Project: " + project.getName());
+        System.out.println("---------------------------------------");
+
+        System.out.println("--------------------------------------------------");
+        System.out.println("ID   | TASK NAME            | STATUS");
+        System.out.println("--------------------------------------------------");
+        for (int i = 0; i < project.getTaskCount(); i++) {
+            System.out.printf("%-4d | %-20s | %-15s\n", project.getTasks()[i].getId(), project.getTasks()[i].getName(), project.getTasks()[i].getStatus());
+        }
+        System.out.println("--------------------------------------------------");
+        System.out.println("Total Tasks: " + project.getTaskCount());
+        System.out.println("--------------------------------------------------");
+    }
+
+    /**
+     * Displays the project details in a vertical format.
+     */
+    public void displayProject(Project project) {
+        System.out.println("\n--------------------------------------------------");
+        System.out.println("Project ID   : " + project.getId());
+        System.out.println("Name         : " + project.getName());
+        System.out.println("Team Size    : " + project.getTeamSize());
+        System.out.println("Budget       : $" + project.getBudget());
+        System.out.println("Description  : " + project.getDescription());
+        System.out.println("Type         : " + project.getProjectDetails());
+        System.out.println("--------------------------------------------------");
+    }
+
+    public void displayProjectHorizontal(Project project) {
+        System.out.printf(
+                "%-4d | %-20s | %-15s | %-10d | $%-10.2f | %s\n",
+                project.getId(),
+                project.getName(),
+                project.getProjectDetails(),
+                project.getTeamSize(),
+                project.getBudget(),
+                project.getDescription()
+        );
     }
 }

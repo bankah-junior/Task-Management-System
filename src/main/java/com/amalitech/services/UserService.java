@@ -87,8 +87,28 @@ public class UserService {
       */
     public void assignUserToProject(User user, Project project) {
         if (user != null && project != null) {
-            user.assignProject(project);
+            assignProject(user, project);
             System.out.println("User " + user.getName() + " assigned to project " + project.getName());
+        }
+    }
+
+    /**
+     * Assigns a project to the user.
+     * @param project The project to assign.
+     */
+    public void assignProject(User user, Project project) {
+        if (!user.getAssignedProjects().contains(project)) {
+            user.getAssignedProjects().add(project);
+        }
+    }
+
+    /**
+     * Assigns a task to the user.
+     * @param task The task to assign.
+     */
+    public void assignTask(User user, Task task) {
+        if (!user.getAssignedTasks().contains(task)) {
+            user.getAssignedTasks().add(task);
         }
     }
 
@@ -99,7 +119,7 @@ public class UserService {
       */
     public void assignUserToTask(User user, Task task) {
         if (user != null && task != null) {
-            user.assignTask(task);
+            assignTask(user, task);
             task.setAssignedUser(user);
             System.out.println("User " + user.getName() + " assigned to task " + task.getName());
         }

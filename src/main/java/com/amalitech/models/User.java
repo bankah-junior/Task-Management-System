@@ -27,6 +27,12 @@ public abstract class User {
     public String getName() { return name; }
     public String getEmail() { return email; }
     public String getRole() { return role; }
+    public List<Project> getAssignedProjects() {
+        return assignedProjects;
+    }
+    public List<Task> getAssignedTasks() {
+        return assignedTasks;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -37,28 +43,14 @@ public abstract class User {
     public void setRole(String role) {
         this.role = role;
     }
-
-    /**
-     * Assigns a project to the user.
-     * @param project The project to assign.
-     */
-    public void assignProject(Project project) {
-        if (!assignedProjects.contains(project)) {
-            assignedProjects.add(project);
-        }
+    public void setAssignedProjects(List<Project> assignedProjects) {
+        this.assignedProjects = assignedProjects;
+    }
+    public void setAssignedTasks(List<Task> assignedTasks) {
+        this.assignedTasks = assignedTasks;
     }
 
     /**
-     * Assigns a task to the user.
-     * @param task The task to assign.
-     */
-    public void assignTask(Task task) {
-        if (!assignedTasks.contains(task)) {
-            assignedTasks.add(task);
-        }
-    }
-
-     /**
      * Displays the permissions of the user.
      */
     public abstract void displayPermissions();

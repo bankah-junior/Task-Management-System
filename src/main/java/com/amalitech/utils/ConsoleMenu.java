@@ -36,7 +36,7 @@ public class ConsoleMenu {
             choice = getMenuChoice(6);
 
             switch (choice) {
-                case 1 -> projectMenu();
+                case 1 -> displayProjectMenu();
                 case 2 -> taskMenu();
                 case 3 -> userMenu();
                 case 4 -> reportMenu();
@@ -99,7 +99,7 @@ public class ConsoleMenu {
         return choice;
     }
 
-    private void projectMenu() {
+    private void displayProjectMenu() {
         System.out.println("\n======================================");
         System.out.println("||          PROJECT CATALOG         ||");
         System.out.println("======================================");
@@ -122,21 +122,21 @@ public class ConsoleMenu {
                     System.out.println("Access denied!");
                     return;
                 }
-                addProject();
+                addProjectMenu();
             }
             case 2 -> {
                 if (!loggedInUser.getRole().equals("ADMIN")) {
                     System.out.println("Access denied!");
                     return;
                 }
-                updateProject();
+                updateProjectMenu();
             }
             case 3 -> {
                 if (!loggedInUser.getRole().equals("ADMIN")) {
                     System.out.println("Access denied!");
                     return;
                 }
-                deleteProject();
+                deleteProjectMenu();
             }
             case 4 -> {
                 try {
@@ -149,8 +149,8 @@ public class ConsoleMenu {
                 int projectId = getMenuChoice(projectService.getSize());
                 if (projectId > 0) {
                     Project project = projectService.getProjectById(projectId);
-                    project.displayProject();
-                    project.displayAllTasks();
+                    projectService.displayProject(project);
+                    projectService.displayAllTasks(project);
                     System.out.println("Completion Rate: " + reportService.completedRate(project) + "%\n");
                 } else if (projectId < 0) {
                     System.out.println("Invalid input!!");
@@ -188,7 +188,7 @@ public class ConsoleMenu {
         }
     }
 
-    private void addProject() {
+    private void addProjectMenu() {
         System.out.print("Enter Project Name: ");
         String name = scanner.nextLine();
         if (!ValidationUtils.isValidName(name)) {
@@ -246,7 +246,7 @@ public class ConsoleMenu {
         projectService.addProject(project);
     }
 
-    private void updateProject() {
+    private void updateProjectMenu() {
         System.out.print("Enter Project ID to update: ");
         int id = getMenuChoice(projectService.getSize());
         System.out.print("New Name: "); String name = scanner.nextLine();
@@ -269,7 +269,7 @@ public class ConsoleMenu {
         }
     }
 
-    private void deleteProject() {
+    private void deleteProjectMenu() {
         System.out.print("Enter Project ID to delete: ");
         int id = getMenuChoice(projectService.getSize());
         if (projectService.deleteProject(id)) {

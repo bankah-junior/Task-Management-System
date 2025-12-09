@@ -8,6 +8,8 @@ import com.amalitech.utils.exceptions.TaskNotFoundException;
 
 public class TaskService {
 
+    private ProjectService projectService;
+
     private int nextTaskId = 1;
 
     /**
