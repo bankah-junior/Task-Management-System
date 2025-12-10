@@ -6,6 +6,9 @@ import services.TaskService;
 import services.UserService;
 import services.ReportService;
 import models.*;
+import utils.exceptions.EmptyProjectException;
+import utils.exceptions.InvalidInputException;
+import utils.exceptions.TaskNotFoundException;
 
 public class ConsoleMenu {
 
@@ -25,7 +28,7 @@ public class ConsoleMenu {
     }
 
     public void start() {
-        login(); // simple user login
+        login();
 
         int choice;
         do {
@@ -136,7 +139,12 @@ public class ConsoleMenu {
                 deleteProject();
             }
             case 4 -> {
-                projectService.displayAllProjects();
+                try {
+                    projectService.displayAllProjects();
+                } catch (EmptyProjectException e) {
+                    System.out.println(e.getMessage());
+                    return;
+                }
                 System.out.print("\nEnter project id to view details (or 0 to return): ");
                 int projectId = getMenuChoice(projectService.getSize());
                 if (projectId > 0) {
@@ -201,17 +209,30 @@ public class ConsoleMenu {
             System.exit(0);
         }
         teamSize = Integer.parseInt(teamSizeInput);
-        System.out.print("Budget: ");
-        double budget;
-        String budgetInput = scanner.nextLine();
-        if (!ValidationUtils.isDouble(budgetInput)) {
-            System.out.println("Enter a valid number!");
+        if (teamSize < 0) {
+            System.out.println("Team size cannot be negative!");
             System.exit(0);
         }
-        budget = Integer.parseInt(budgetInput);
+        System.out.print("Budget: ");
+        double budget = 0;
+        String budgetInput = scanner.nextLine();
+        try {
+            if (!ValidationUtils.isDouble(budgetInput)) {
+                System.out.println("Enter a valid number!");
+                System.exit(0);
+            } else {
+                budget = Integer.parseInt(budgetInput);
+            }
+        } catch (InvalidInputException e) {
+            System.out.println(e.getMessage());
+            System.exit(0);
+        }
+        if (budget < 0) {
+            System.out.println("Budget cannot be negative!");
+            System.exit(0);
+        }
         System.out.print("Type (Software/Hardware): ");
         String type = scanner.nextLine();
-
         Project project = null;
         if (type.equalsIgnoreCase("Software")) {
             project = new SoftwareProject(projectService.getSize() + 1, name, desc, budget, teamSize);
@@ -231,7 +252,15 @@ public class ConsoleMenu {
         System.out.print("New Name: "); String name = scanner.nextLine();
         System.out.print("New Description: "); String desc = scanner.nextLine();
         System.out.print("New Team Size: "); int teamSize = Integer.parseInt(scanner.nextLine());
+        if (teamSize < 0) {
+            System.out.println("Team size cannot be negative!");
+            System.exit(0);
+        }
         System.out.print("New Budget: "); double budget = Double.parseDouble(scanner.nextLine());
+        if (budget < 0) {
+            System.out.println("Budget cannot be negative!");
+            System.exit(0);
+        }
 
         if (projectService.updateProject(id, name, desc, teamSize, budget)) {
             System.out.println("Project Updated Successfully!");
@@ -275,14 +304,33 @@ public class ConsoleMenu {
 
         switch (choice) {
             case 1 -> {
-                scanner.nextLine();
                 System.out.print("Task Name: ");
                 String name = scanner.nextLine();
                 System.out.print("Status (TODO, IN_PROGRESS, COMPLETED): ");
-                TaskStatus status = TaskStatus.valueOf(scanner.nextLine().toUpperCase());
-                System.out.print("Duration (Hours): ");
-                int hours = scanner.nextInt();
-                taskService.addTaskToProject(project, name, status, loggedInUser, hours);
+                try {
+                    String statusInput = scanner.nextLine();
+                    TaskStatus status = TaskStatus.valueOf(statusInput.toUpperCase());
+                    System.out.print("Duration (Hours): ");
+                    try {
+                        String durationInput = scanner.nextLine();
+                        if(!ValidationUtils.isInteger(durationInput)) {
+                            System.out.println("\nInvalid duration! Please enter a valid number.");
+                            return;
+                        }
+                        int duration = Integer.parseInt(durationInput);
+                        if (duration <= 0) {
+                            System.out.println("\nDuration must be greater than 0!");
+                            return;
+                        }
+                        taskService.addTaskToProject(project, name, status, null, duration);
+                    } catch (NumberFormatException e) {
+                        System.out.println("\nInvalid duration! Please enter a valid number.");
+                        return;
+                    }
+                } catch (IllegalArgumentException e) {
+                    System.out.println("\nInvalid status! Use: TODO, IN_PROGRESS, or COMPLETED.");
+                    return;
+                }
             }
             case 2 -> {
                 System.out.print("Task ID to update: ");
@@ -292,11 +340,29 @@ public class ConsoleMenu {
                 String newName = scanner.nextLine();
                 System.out.print("New Status (TODO, IN_PROGRESS, COMPLETED) or Enter to skip: ");
                 String statusInput = scanner.nextLine();
-                TaskStatus newStatus = statusInput.isEmpty() ? null : TaskStatus.valueOf(statusInput.toUpperCase());
-                taskService.updateTask(project, taskId, newName.isEmpty() ? null : newName, newStatus);
+                TaskStatus newStatus = null;
+                if (!statusInput.isEmpty()) {
+                    try {
+                        newStatus = TaskStatus.valueOf(statusInput.toUpperCase());
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("\nInvalid status! Use: TODO, IN_PROGRESS, or COMPLETED.");
+                        return;
+                    }
+                }
+                try {
+                    taskService.updateTask(project, taskId, newName.isEmpty() ? null : newName, newStatus);
+                } catch (TaskNotFoundException e) {
+                    System.out.println(e.getMessage());
+                }
             }
             case 3 -> {
-                System.out.print("Task ID to delete: "); int taskId = Integer.parseInt(scanner.nextLine());
+                System.out.print("Task ID to delete: ");
+                String taskIdInput = scanner.nextLine();
+                if (!ValidationUtils.isInteger(taskIdInput)) {
+                    System.out.println("Enter a valid number!");
+                    return;
+                }
+                int taskId = Integer.parseInt(taskIdInput);
                 taskService.deleteTask(project, taskId);
             }
             case 4 -> { return; }
@@ -323,7 +389,6 @@ public class ConsoleMenu {
         int choice = getMenuChoice(6);
         switch (choice) {
             case 1 -> {
-                scanner.nextLine();
                 System.out.print("Name: ");
                 String name = scanner.nextLine();
                 if (!ValidationUtils.isValidName(name)) {
@@ -332,8 +397,13 @@ public class ConsoleMenu {
                 }
                 System.out.print("Email: ");
                 String email = scanner.nextLine();
-                if (!ValidationUtils.isValidEmail(email)) {
-                    System.out.println("Enter a valid email!!");
+                try {
+                    if (!ValidationUtils.isValidEmail(email)) {
+                        System.out.println("Enter a valid email!!");
+                        System.exit(0);
+                    }
+                } catch (InvalidInputException e) {
+                    System.out.println(e.getMessage());
                     System.exit(0);
                 }
                 System.out.print("Role (ADMIN/REGULAR_USER): ");

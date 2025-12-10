@@ -1,6 +1,7 @@
 package services;
 
 import models.Project;
+import utils.exceptions.EmptyProjectException;
 
 import java.util.Arrays;
 
@@ -17,6 +18,10 @@ public class ProjectService {
         return size;
     }
 
+    /**
+     * Adds a new project to the system.
+     * @param project The project to be added.
+     */
     public void addProject(Project project) {
         if (size < projects.length) {
             projects[size++] = project;
@@ -28,8 +33,7 @@ public class ProjectService {
 
     public void displayAllProjects() {
         if (size == 0) {
-            System.out.println("No projects available.");
-            return;
+            throw new EmptyProjectException("No projects available in the system.");
         }
         System.out.println("--------------------------------------------------------------------------------------");
         System.out.println("ID   | PROJECT NAME         | TYPE             | TEAM SIZE  |   BUDGET   | DESCRIPTION");
@@ -42,6 +46,10 @@ public class ProjectService {
         System.out.println("--------------------------------------------------------------------------------------");
     }
 
+    /**
+     * Filters projects by type.
+     * @param type The type of project to filter by.
+     */
     public void filterByType(String type) {
         boolean found = false;
         System.out.println("--------------------------------------------------------------------------------------");
@@ -57,6 +65,11 @@ public class ProjectService {
         if (!found) System.out.println("No projects found for type: " + type);
     }
 
+    /**
+     * Searches for projects within a specified budget range.
+     * @param min The minimum budget.
+     * @param max The maximum budget.
+     */
     public void searchByBudget(double min, double max) {
         boolean found = false;
         System.out.printf("Projects between $%.2f and $%.2f:\n", min, max);
@@ -76,6 +89,15 @@ public class ProjectService {
         }
     }
 
+    /**
+     * Updates project details.
+     * @param projectId The ID of the project to update.
+     * @param newName The new name of the project.
+     * @param newDescription The new description of the project.
+     * @param newTeamSize The new team size of the project.
+     * @param newBudget The new budget of the project.
+     * @return true if the project was updated successfully, false otherwise.
+     */
     public boolean updateProject(int projectId, String newName, String newDescription, int newTeamSize, double newBudget) {
         Project p = getProjectById(projectId);
         if (p == null) {
@@ -97,6 +119,11 @@ public class ProjectService {
         }
     }
 
+    /**
+     * Deletes a project by its ID.
+     * @param projectId The ID of the project to delete.
+     * @return true if the project was deleted successfully, false otherwise.
+     */
     public boolean deleteProject(int projectId) {
         int index = -1;
         for (int i = 0; i < size; i++) {
@@ -122,6 +149,11 @@ public class ProjectService {
         return true;
     }
 
+    /**
+     * Retrieves a project by its ID.
+     * @param id The ID of the project to retrieve.
+     * @return The project with the specified ID, or null if not found.
+     */
     public Project getProjectById(int id) {
         for (int i = 0; i < size; i++) {
             if (projects[i].getId() == id) return projects[i];
@@ -129,6 +161,10 @@ public class ProjectService {
         return null;
     }
 
+     /**
+      * Retrieves all projects.
+      * @return An array of all projects.
+      */
     public Project[] getProjects() {
         return Arrays.copyOf(projects, size);
     }

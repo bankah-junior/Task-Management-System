@@ -19,7 +19,6 @@ public abstract class Project {
         this.teamSize = teamSize;
     }
 
-    // GETTERS
     public int getId() {
         return id;
     }
@@ -29,19 +28,17 @@ public abstract class Project {
     public double getBudget() {
         return budget;
     }
-    public int getTeamSize() {
-        return teamSize;
-    }
 
-    // SETTERS
     public void setName(String name) { this.name = name; }
     public void setDescription(String description) { this.description = description; }
     public void setTeamSize(int teamSize) { this.teamSize = teamSize; }
     public void setBudget(double budget) { this.budget = budget; }
 
-    // ABSTRACT METHOD
     public abstract String getProjectDetails();
 
+    /**
+     * Displays the project details in a vertical format.
+     */
     public void displayProject() {
         System.out.println("\n--------------------------------------------------");
         System.out.println("Project ID   : " + id);
@@ -52,6 +49,9 @@ public abstract class Project {
         System.out.println("Type         : " + getProjectDetails());
         System.out.println("--------------------------------------------------");
     }
+     /**
+     * Displays the project details in a horizontal format.
+     */
     public void displayProjectHorizontal() {
         System.out.printf(
                 "%-4d | %-20s | %-15s | %-10d | $%-10.2f | %s\n",
@@ -64,6 +64,11 @@ public abstract class Project {
         );
     }
 
+     /**
+     * Adds a new task to the project.
+     * @param task The task to be added.
+     * @return true if the task was added successfully, false otherwise.
+     */
     public boolean addTask(Task task) {
         // prevent duplicate IDs
         for (int i = 0; i < taskCount; i++) {
@@ -82,6 +87,12 @@ public abstract class Project {
             return false;
         }
     }
+
+     /**
+     * Finds a task by its ID.
+     * @param id The ID of the task to find.
+     * @return The task with the specified ID, or null if not found.
+     */
     public Task getTaskById(int id) {
         for (int i = 0; i < taskCount; i++) {
             if (tasks[i].getId() == id) {
@@ -90,6 +101,10 @@ public abstract class Project {
         }
         return null;
     }
+
+    /**
+     * Displays all tasks associated with the project.
+     */
     public void displayAllTasks() {
         if (taskCount == 0) {
             System.out.println("No tasks found for this project.");
@@ -110,12 +125,26 @@ public abstract class Project {
         System.out.println("Total Tasks: " + taskCount);
         System.out.println("--------------------------------------------------");
     }
+
+     /**
+     * Returns the array of tasks associated with the project.
+     * @return The array of tasks.
+     */
     public Task[] getTasks() {
         return tasks;
     }
+
+     /**
+     * Returns the number of tasks associated with the project.
+     * @return The number of tasks.
+     */
     public int getTaskCount() {
         return taskCount;
     }
+
+     /**
+     * Decrements the task count by one.
+     */
     public void decrementTaskCount() {
         if (taskCount > 0) taskCount--;
     }

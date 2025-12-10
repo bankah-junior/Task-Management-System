@@ -23,37 +23,33 @@ public abstract class User {
         this.assignedTasks = new ArrayList<>();
     }
 
-    // Getters
     public int getId() { return id; }
     public String getName() { return name; }
-    public String getEmail() { return email; }
     public String getRole() { return role; }
-    public List<Project> getAssignedProjects() { return assignedProjects; }
-    public List<Task> getAssignedTasks() { return assignedTasks; }
 
-    // Assign project
+     /**
+     * Assigns a project to the user.
+     * @param project The project to assign.
+     */
     public void assignProject(Project project) {
         if (!assignedProjects.contains(project)) {
             assignedProjects.add(project);
         }
     }
 
-    // Assign task
+    /**
+     * Assigns a task to the user.
+     * @param task The task to assign.
+     */
     public void assignTask(Task task) {
         if (!assignedTasks.contains(task)) {
             assignedTasks.add(task);
         }
     }
 
-    public void removeProject(Project project) {
-        assignedProjects.remove(project);
-    }
-
-    public void removeTask(Task task) {
-        assignedTasks.remove(task);
-    }
-
-    // Abstract method for role behavior
+     /**
+     * Displays the permissions of the user.
+     */
     public abstract void displayPermissions();
 
     @Override
