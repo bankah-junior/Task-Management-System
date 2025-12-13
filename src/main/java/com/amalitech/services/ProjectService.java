@@ -171,7 +171,7 @@ public class ProjectService {
         System.out.println("ID   | TASK NAME            | STATUS");
         System.out.println("--------------------------------------------------");
         for (int i = 0; i < project.getTaskCount(); i++) {
-            System.out.printf("%-4d | %-20s | %-15s\n", project.getTasks()[i].getId(), project.getTasks()[i].getName(), project.getTasks()[i].getStatus());
+            System.out.printf("%-4d | %-20s | %-15s\n", project.getTasks().get(i).getId(), project.getTasks().get(i).getName(), project.getTasks().get(i).getStatus());
         }
         System.out.println("--------------------------------------------------");
         System.out.println("Total Tasks: " + project.getTaskCount());

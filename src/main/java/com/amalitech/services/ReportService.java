@@ -5,6 +5,7 @@ import com.amalitech.models.Task;
 import com.amalitech.models.StatusReport;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ReportService {
@@ -20,7 +21,7 @@ public class ReportService {
             throw new IllegalArgumentException("Project cannot be null.");
         }
 
-        Task[] tasks = project.getTasks();
+        List<Task> tasks = project.getTasks();
         int total = project.getTaskCount();
 
         if (tasks == null || total == 0) {
@@ -32,7 +33,7 @@ public class ReportService {
         Map<String, Integer> userTaskSummary = new HashMap<>();
 
         for (int i = 0; i < total; i++) {
-            Task t = tasks[i];
+            Task t = tasks.get(i);
             if (t != null) {
                 if (t.isCompleted()) {
                     completed++;
@@ -92,7 +93,7 @@ public class ReportService {
             throw new IllegalArgumentException("Project cannot be null.");
         }
 
-        Task[] tasks = project.getTasks();
+        List<Task> tasks = project.getTasks();
         int total = project.getTaskCount();
 
         if (tasks == null || total == 0) {
@@ -102,7 +103,7 @@ public class ReportService {
         int completed = 0;
 
         for (int i = 0; i < total; i++) {
-            Task t = tasks[i];
+            Task t = tasks.get(i);
             if (t != null) {
                 if (t.isCompleted()) {
                     completed++;
