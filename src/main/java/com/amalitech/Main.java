@@ -11,7 +11,7 @@ import com.amalitech.utils.TaskStatus;
 public class Main {
     public static void main(String[] args) {
         // ----------------- Initialize Services -----------------
-        ProjectService projectService = new ProjectService(); // max 20 projects
+        ProjectService projectService = new ProjectService();
         TaskService taskService = new TaskService();
         UserService userService = new UserService();
         ReportService reportService = new ReportService();
@@ -63,6 +63,8 @@ public class Main {
         taskService.addTaskToProject(p6, "Build Robot Frame", TaskStatus.TODO, regular1, 5);
         taskService.addTaskToProject(p6, "Install Motors", TaskStatus.TODO, regular2, 5);
         taskService.addTaskToProject(p6, "Test Movement", TaskStatus.TODO, regular2, 5);
+
+        projectService.loadProjects();
 
         // ----------------- Start Menu -----------------
         ConsoleMenu menu = new ConsoleMenu(projectService, taskService, userService, reportService);

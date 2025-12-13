@@ -1,14 +1,20 @@
 package com.amalitech.services;
 
+import com.amalitech.models.HardwareProject;
 import com.amalitech.models.Project;
+import com.amalitech.models.SoftwareProject;
+import com.amalitech.utils.FileUtils;
 import com.amalitech.utils.exceptions.EmptyProjectException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class ProjectService {
 
+    private static final String PROJECT_FILE = "src/data/projects_data.json";
     private final List<Project> projects;
     private int size = 0;
 
@@ -203,4 +209,97 @@ public class ProjectService {
                 project.getDescription()
         );
     }
+
+    /**
+     * Saves all projects to a JSON file.
+     */
+    public void saveProjects() {
+        try {
+            List<String> jsonLines = new ArrayList<>();
+            jsonLines.add("[");
+
+            for (int i = 0; i < projects.size(); i++) {
+                jsonLines.add(projects.get(i).toJson() +
+                        (i < projects.size() - 1 ? "," : ""));
+            }
+
+            jsonLines.add("]");
+
+            FileUtils.writeAllLines(PROJECT_FILE, jsonLines);
+            System.out.println("Projects saved successfully.");
+
+        } catch (IOException e) {
+            System.out.println("Failed to save projects: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Loads projects from a JSON file.
+     */
+    public void loadProjects() {
+        try {
+            List<String> lines = FileUtils.readAllLines(PROJECT_FILE);
+
+            StringBuilder jsonObject = new StringBuilder();
+
+            for (String line : lines) {
+                line = line.trim();
+
+                if (line.startsWith("{")) {
+                    jsonObject.setLength(0);
+                }
+
+                if (!line.equals("[") && !line.equals("]")) {
+                    jsonObject.append(line);
+                }
+
+                if (line.endsWith("},") || line.endsWith("}")) {
+                    Map<String, String> values =
+                            FileUtils.parseJsonObject(jsonObject.toString());
+
+                    int id = Integer.parseInt(values.get("id"));
+                    String name = values.get("name");
+                    String description = values.get("description");
+                    String type = values.get("type");
+                    double budget = Double.parseDouble(values.get("budget"));
+                    int teamSize = Integer.parseInt(values.get("teamSize"));
+
+                    Project project = createProjectFromType(
+                            id, name, description, budget, teamSize, type
+                    );
+
+                    projects.add(project);
+                }
+            }
+
+            System.out.println("Projects loaded successfully.");
+
+        } catch (Exception e) {
+            System.out.println("Failed to load projects: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Creates a project instance based on project type.
+     *
+     * @param id project ID
+     * @param name project name
+     * @param budget project budget
+     * @param teamSize project team size
+     * @param type project type
+     * @return a Project instance
+     */
+    private Project createProjectFromType(int id,
+                                          String name,
+                                          String description,
+                                          double budget,
+                                          int teamSize,
+                                          String type) {
+
+        if ("Software".equalsIgnoreCase(type)) {
+            return new SoftwareProject(id, name, description, budget, teamSize);
+        }
+        return new HardwareProject(id, name, description, budget, teamSize);
+    }
+
 }
