@@ -112,6 +112,7 @@ public abstract class Project {
                         "  }",
                 id,
                 name,
+                description,
                 getProjectDetails(),
                 budget,
                 teamSize

@@ -1,50 +1,58 @@
 [
   {
+    "id": 1,
+    "name": "SDF",
+    "description": "FDFRAGSGGR",
+    "type": "Hardware Project",
+    "budget": 4644584.00,
+    "teamSize": 44
+  },
+  {
+    "id": 2,
+    "name": "E-commerce Mobile App",
+    "description": "An e-commerce app for buying and selling products.",
+    "type": "Hardware Project",
+    "budget": 20000.00,
+    "teamSize": 5
+  },
+  {
+    "id": 3,
+    "name": "Corporate Branding Design",
+    "description": "Designing a brand identity for a company.",
+    "type": "Hardware Project",
+    "budget": 8000.00,
+    "teamSize": 3
+  },
+  {
+    "id": 4,
+    "name": "Social Media Marketing Campaign",
+    "description": "A campaign to increase brand awareness on social media.",
+    "type": "Hardware Project",
+    "budget": 15000.00,
+    "teamSize": 4
+  },
+  {
+    "id": 5,
+    "name": "SEO Optimization Project",
+    "description": "Improving website ranking on search engines.",
+    "type": "Hardware Project",
+    "budget": 7000.00,
+    "teamSize": 2
+  },
+  {
+    "id": 6,
+    "name": "Mobile Game Development",
+    "description": "Developing a mobile game for iOS and Android platforms.",
+    "type": "Hardware Project",
+    "budget": 30000.00,
+    "teamSize": 6
+  },
+  {
     "id": 7,
-    "name": "Personal Portfolio Website",
-    "description": "A personal website to showcase projects and skills.",
-    "type": "Software",
-    "budget": 5000,
-    "teamSize": 1
-  },
-  {
-      "id": 8,
-      "name": "E-commerce Mobile App",
-      "description": "An e-commerce app for buying and selling products.",
-      "type": "Software",
-      "budget": 20000,
-      "teamSize": 5
-  },
-  {
-      "id": 9,
-      "name": "Corporate Branding Design",
-      "description": "Designing a brand identity for a company.",
-      "type": "hardware",
-      "budget": 8000,
-      "teamSize": 3
-  },
-  {
-      "id": 10,
-      "name": "Social Media Marketing Campaign",
-      "description": "A campaign to increase brand awareness on social media.",
-      "type": "Hardware",
-      "budget": 15000,
-      "teamSize": 4
-  },
-  {
-      "id": 11,
-      "name": "SEO Optimization Project",
-      "description": "Improving website ranking on search engines.",
-      "type": "Software",
-      "budget": 7000,
-      "teamSize": 2
-  },
-  {
-      "id": 12,
-      "name": "Mobile Game Development",
-      "description": "Developing a mobile game for iOS and Android platforms.",
-      "type": "Software",
-      "budget": 30000,
-      "teamSize": 6
+    "name": "DDSF",
+    "description": "FSDFSGSFSGF",
+    "type": "Hardware Project",
+    "budget": 78648464.00,
+    "teamSize": 88
   }
 ]

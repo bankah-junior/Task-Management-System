@@ -156,8 +156,8 @@ public class ProjectService {
       * Retrieves all projects.
       * @return An array of all projects.
       */
-    public Project[] getProjects() {
-        return projects.toArray(new Project[0]);
+    public List<Project> getProjects() {
+        return projects;
     }
 
     /**

@@ -34,7 +34,7 @@ public class ReportService {
         Map<String, Integer> userSummary = project.getTasks().stream()
                 .filter(task -> task.getStatus() == TaskStatus.COMPLETED)
                 .collect(Collectors.groupingBy(
-                        task -> task.getAssignedUser().getName(),
+                        Task::getName,
                         Collectors.summingInt(t -> 1)
                 ));
 
@@ -51,7 +51,7 @@ public class ReportService {
      * Generates status reports for all projects.
      * @param projects The array of projects for which to generate status reports.
      */
-    public void generateAllProjectReports(Project[] projects) {
+    public void generateAllProjectReports(List<Project> projects) {
         double totalCompletion = 0.0;
         double averageCompletion = 0.0;
         System.out.println("---------------------------------------------------------------------");
@@ -69,7 +69,7 @@ public class ReportService {
                     statusReport.getPercentageCompleted()
             );
         }
-        averageCompletion = totalCompletion / projects.length;
+        averageCompletion = totalCompletion / projects.size();
         System.out.println("---------------------------------------------------------------------");
         System.out.println("AVERAGE COMPLETION: " + averageCompletion + "%");
         System.out.println("---------------------------------------------------------------------");

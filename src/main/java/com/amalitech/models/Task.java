@@ -36,4 +36,31 @@ public class Task implements Completable {
     public boolean isCompleted() {
         return status == TaskStatus.COMPLETED;
     }
+
+    /**
+     * Converts the task to a JSON-formatted string.
+     *
+     * @param projectId the project this task belongs to
+     * @return JSON representation of the task
+     */
+    public String toJson(int projectId) {
+        return String.format(
+                "  {\n" +
+                        "    \"id\": %d,\n" +
+                        "    \"projectId\": %d,\n" +
+                        "    \"name\": \"%s\",\n" +
+                        "    \"status\": \"%s\",\n" +
+                        "    \"assignedUser\": \"%s\",\n" +
+                        "    \"estimatedHours\": %d\n" +
+                        "  }",
+                id,
+                projectId,
+                name,
+                status,
+                assignedUser != null ? assignedUser.getName() : "Unassigned",
+                hours
+        );
+    }
+
+
 }
