@@ -2,121 +2,121 @@
   {
     "id": 1,
     "projectId": 1,
-    "name": "Design Database",
+    "name": "Design UI",
     "status": "COMPLETED",
     "assignedUser": "Unassigned",
-    "estimatedHours": 8
+    "estimatedHours": 5
   },
   {
     "id": 2,
     "projectId": 1,
-    "name": "Implement Database",
+    "name": "Develop Backend",
     "status": "IN_PROGRESS",
     "assignedUser": "Unassigned",
-    "estimatedHours": 12
+    "estimatedHours": 5
   },
   {
     "id": 3,
-    "projectId": 2,
-    "name": "Create Wireframes",
-    "status": "COMPLETED",
+    "projectId": 1,
+    "name": "Write Unit Tests",
+    "status": "TODO",
     "assignedUser": "Unassigned",
-    "estimatedHours": 10
+    "estimatedHours": 5
   },
   {
     "id": 4,
     "projectId": 2,
-    "name": "Build Frontend",
-    "status": "IN_PROGRESS",
+    "name": "Setup Hardware Lab",
+    "status": "TODO",
     "assignedUser": "Unassigned",
-    "estimatedHours": 15
+    "estimatedHours": 5
   },
   {
     "id": 5,
     "projectId": 2,
-    "name": "Build Backend",
-    "status": "COMPLETED",
+    "name": "Assemble Prototype",
+    "status": "IN_PROGRESS",
     "assignedUser": "Unassigned",
-    "estimatedHours": 20
+    "estimatedHours": 5
   },
   {
     "id": 6,
     "projectId": 3,
-    "name": "Design Branding",
-    "status": "IN_PROGRESS",
+    "name": "Create Wireframes",
+    "status": "TODO",
     "assignedUser": "Unassigned",
-    "estimatedHours": 12
+    "estimatedHours": 5
   },
   {
     "id": 7,
     "projectId": 3,
-    "name": "Brand Identity",
-    "status": "COMPLETED",
+    "name": "Implement Frontend",
+    "status": "TODO",
     "assignedUser": "Unassigned",
-    "estimatedHours": 8
+    "estimatedHours": 5
   },
   {
     "id": 8,
-    "projectId": 4,
-    "name": "Brand Packaging",
-    "status": "IN_PROGRESS",
+    "projectId": 3,
+    "name": "Setup Backend Server",
+    "status": "TODO",
     "assignedUser": "Unassigned",
-    "estimatedHours": 10
+    "estimatedHours": 5
   },
   {
     "id": 9,
     "projectId": 4,
-    "name": "Brand Marketing",
-    "status": "COMPLETED",
+    "name": "Procure Sensors",
+    "status": "TODO",
     "assignedUser": "Unassigned",
-    "estimatedHours": 12
+    "estimatedHours": 5
   },
   {
     "id": 10,
-    "projectId": 5,
-    "name": "Brand Advertising",
+    "projectId": 4,
+    "name": "Assemble Circuit Boards",
     "status": "IN_PROGRESS",
     "assignedUser": "Unassigned",
-    "estimatedHours": 14
+    "estimatedHours": 5
   },
   {
     "id": 11,
     "projectId": 5,
-    "name": "Brand Social Media",
-    "status": "COMPLETED",
+    "name": "Design Characters",
+    "status": "TODO",
     "assignedUser": "Unassigned",
-    "estimatedHours": 16
+    "estimatedHours": 5
   },
   {
     "id": 12,
+    "projectId": 5,
+    "name": "Program Game Mechanics",
+    "status": "TODO",
+    "assignedUser": "Unassigned",
+    "estimatedHours": 5
+  },
+  {
+    "id": 13,
     "projectId": 6,
-    "name": "Brand Website",
-    "status": "IN_PROGRESS",
-    "assignedUser": "Unassigned",
-    "estimatedHours": 18
-  },
-  {
-    "id": 1,
-    "projectId": 7,
-    "name": "ffsd",
+    "name": "Build Robot Frame",
     "status": "TODO",
     "assignedUser": "Unassigned",
-    "estimatedHours": 8
+    "estimatedHours": 5
   },
   {
-    "id": 2,
-    "projectId": 7,
-    "name": "oyoy",
-    "status": "COMPLETED",
-    "assignedUser": "Unassigned",
-    "estimatedHours": 2
-  },
-  {
-    "id": 3,
-    "projectId": 7,
-    "name": "xd",
+    "id": 14,
+    "projectId": 6,
+    "name": "Install Motors",
     "status": "TODO",
     "assignedUser": "Unassigned",
-    "estimatedHours": 8
+    "estimatedHours": 5
+  },
+  {
+    "id": 15,
+    "projectId": 6,
+    "name": "Test Movement",
+    "status": "TODO",
+    "assignedUser": "Unassigned",
+    "estimatedHours": 5
   }
 ]

@@ -1,58 +1,50 @@
 [
   {
     "id": 1,
-    "name": "SDF",
-    "description": "FDFRAGSGGR",
+    "name": "Alpha",
+    "description": "Software project for app",
     "type": "Hardware Project",
-    "budget": 4644584.00,
-    "teamSize": 44
-  },
-  {
-    "id": 2,
-    "name": "E-commerce Mobile App",
-    "description": "An e-commerce app for buying and selling products.",
-    "type": "Hardware Project",
-    "budget": 20000.00,
+    "budget": 10000.00,
     "teamSize": 5
   },
   {
-    "id": 3,
-    "name": "Corporate Branding Design",
-    "description": "Designing a brand identity for a company.",
+    "id": 2,
+    "name": "Beta",
+    "description": "Hardware testing project",
     "type": "Hardware Project",
-    "budget": 8000.00,
+    "budget": 15000.00,
     "teamSize": 3
   },
   {
-    "id": 4,
-    "name": "Social Media Marketing Campaign",
-    "description": "A campaign to increase brand awareness on social media.",
+    "id": 3,
+    "name": "Gamma",
+    "description": "New web platform",
     "type": "Hardware Project",
-    "budget": 15000.00,
+    "budget": 20000.00,
+    "teamSize": 6
+  },
+  {
+    "id": 4,
+    "name": "Delta",
+    "description": "IoT sensor hardware",
+    "type": "Hardware Project",
+    "budget": 18000.00,
     "teamSize": 4
   },
   {
     "id": 5,
-    "name": "SEO Optimization Project",
-    "description": "Improving website ranking on search engines.",
+    "name": "Epsilon",
+    "description": "Mobile game development",
     "type": "Hardware Project",
-    "budget": 7000.00,
-    "teamSize": 2
+    "budget": 12000.00,
+    "teamSize": 5
   },
   {
     "id": 6,
-    "name": "Mobile Game Development",
-    "description": "Developing a mobile game for iOS and Android platforms.",
+    "name": "Zeta",
+    "description": "Robotics assembly",
     "type": "Hardware Project",
-    "budget": 30000.00,
-    "teamSize": 6
-  },
-  {
-    "id": 7,
-    "name": "DDSF",
-    "description": "FSDFSGSFSGF",
-    "type": "Hardware Project",
-    "budget": 78648464.00,
-    "teamSize": 88
+    "budget": 25000.00,
+    "teamSize": 8
   }
 ]

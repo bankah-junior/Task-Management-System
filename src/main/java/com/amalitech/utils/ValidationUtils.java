@@ -33,10 +33,7 @@ public class ValidationUtils {
         if (email == null || email.trim().isEmpty()) return false;
 
         try {
-            int atIndex = email.indexOf('@');
-            int dotIndex = email.lastIndexOf('.');
-
-            return atIndex > 0 && dotIndex > atIndex + 1 && dotIndex < email.length() - 1;
+            return RegexValidator.isValidEmail(email);
         } catch (Exception e) {
             throw new InvalidInputException("Invalid email format: " + email);
         }
@@ -52,7 +49,8 @@ public class ValidationUtils {
         if (input == null || input.trim().isEmpty()) return false;
 
         try {
-            Integer.parseInt(input.trim());
+            if(RegexValidator.isNumeric(input))
+                Integer.parseInt(input.trim());
             return true;
         } catch (NumberFormatException e) {
             return false;
@@ -69,7 +67,8 @@ public class ValidationUtils {
         if (input == null || input.trim().isEmpty()) return false;
 
         try {
-            Double.parseDouble(input.trim());
+             if(RegexValidator.isNumeric(input))
+                 Double.parseDouble(input.trim());
             return true;
         } catch (NumberFormatException e) {
             throw new InvalidInputException("Invalid double format: " + input);

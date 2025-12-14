@@ -3,6 +3,7 @@ package com.amalitech.services;
 import com.amalitech.models.Project;
 import com.amalitech.models.Task;
 import com.amalitech.models.StatusReport;
+import com.amalitech.utils.FunctionalUtils;
 import com.amalitech.utils.TaskStatus;
 
 import java.util.HashMap;
@@ -21,9 +22,7 @@ public class ReportService {
     public StatusReport generateProjectStatus(Project project) {
 
         long totalTasks = project.getTasks().size();
-        long completedTasks = project.getTasks().stream()
-                .filter(task -> task.getStatus() == TaskStatus.COMPLETED)
-                .count();
+        long completedTasks = FunctionalUtils.filterTasks(project.getTasks(), t -> t.getStatus() == TaskStatus.COMPLETED).size();
 
         long pendingTasks = totalTasks - completedTasks;
 

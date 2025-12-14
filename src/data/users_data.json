@@ -3,7 +3,7 @@
     "id": 1,
     "name": "Alice",
     "email": "alice@example.com",
-    "role": "ADMIN"
+    "role": "REGULAR_USER"
   },
   {
     "id": 2,
@@ -16,11 +16,5 @@
     "name": "Bankah",
     "email": "bankah@gmail.com",
     "role": "ADMIN"
-  },
-  {
-    "id": 4,
-    "name": "Kay",
-    "email": "kay@gmail.com",
-    "role": "REGULAR_USER"
   }
 ]

@@ -24,6 +24,9 @@ public class Task implements Completable {
     public TaskStatus getStatus() {
         return status;
     }
+    public int getHours() {
+        return hours;
+    }
 
     public void setName(String name) { this.name = name; }
     public void setAssignedUser(User user) { this.assignedUser = user; }
