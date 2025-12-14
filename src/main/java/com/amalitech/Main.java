@@ -17,9 +17,9 @@ public class Main {
         ReportService reportService = new ReportService();
 
         // ----------------- Create some sample users -----------------
-        User admin = userService.createUser("Alice", "alice@example.com", "ADMIN");
-        User regular1 = userService.createUser("Bob", "bob@example.com", "REGULAR_USER");
-        User regular2 = userService.createUser("Charlie", "charlie@example.com", "REGULAR_USER");
+//        User admin = userService.createUser("Alice", "alice@example.com", "ADMIN");
+//        User regular1 = userService.createUser("Bob", "bob@example.com", "REGULAR_USER");
+//        User regular2 = userService.createUser("Charlie", "charlie@example.com", "REGULAR_USER");
 
 //        // ----------------- Create sample projects -----------------
 //        Project p1 = new SoftwareProject(1, "Alpha", "Software project for app", 10000, 5);
@@ -66,6 +66,7 @@ public class Main {
 
         projectService.loadProjects();
         taskService.loadTasks(projectService.getProjects());
+        userService.loadUsers();
 
         // ----------------- Start Menu -----------------
         ConsoleMenu menu = new ConsoleMenu(projectService, taskService, userService, reportService);

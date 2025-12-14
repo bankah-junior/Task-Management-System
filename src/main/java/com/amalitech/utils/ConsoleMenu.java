@@ -459,6 +459,7 @@ public class ConsoleMenu {
     private void saveAndExit() {
         projectService.saveProjects();
         taskService.saveTasks(projectService.getProjects());
+        userService.saveUsers();
         System.out.println("Data saved. Exiting...");
         System.exit(0);
     }

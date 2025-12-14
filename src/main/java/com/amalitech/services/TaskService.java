@@ -106,10 +106,11 @@ public class TaskService {
      * @throws TaskNotFoundException if the task with the specified ID is not found.
      */
     public Task getTaskById(int taskId, List<Task> tasks) {
-        tasks.stream().filter(t -> t.getId() == taskId).findFirst()
-                .ifPresent(t -> {
-                    throw new RuntimeException("Task found: " + t.getName());
-                });
+        for (Task task : tasks) {
+            if (task.getId() == taskId) {
+                return task;
+            }
+        }
         throw new TaskNotFoundException("Task with ID " + taskId + " not found.");
     }
 
