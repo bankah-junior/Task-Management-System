@@ -85,26 +85,12 @@ public class ReportService {
         }
 
         List<Task> tasks = project.getTasks();
-        int total = project.getTaskCount();
-
-        if (tasks == null || total == 0) {
-            return 0.00;
+        if (tasks.isEmpty()) {
+            return 0.0;
         }
 
-        int completed = 0;
-
-        for (int i = 0; i < total; i++) {
-            Task t = tasks.get(i);
-            if (t != null) {
-                if (t.isCompleted()) {
-                    completed++;
-                }
-            }
-        }
-
-        double percent = (double) completed / total * 100;
-        percent = Math.round(percent * 100) / 100.0;
-
-        return percent;
+        return tasks.stream()
+                .filter(t -> t.getStatus() == TaskStatus.COMPLETED)
+                .count() * 100.0 / tasks.size();
     }
 }
