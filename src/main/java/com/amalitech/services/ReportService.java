@@ -3,56 +3,48 @@ package com.amalitech.services;
 import com.amalitech.models.Project;
 import com.amalitech.models.Task;
 import com.amalitech.models.StatusReport;
+import com.amalitech.utils.TaskStatus;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ReportService {
 
     /**
-     * Generates a status report for a project.
-     * @param project The project for which to generate the status report.
-     * @return A StatusReport object containing the project's task statistics.
+     * Generates a project status report.
+     *
+     * @param project the project to analyze
+     * @return a StatusReport instance
      */
     public StatusReport generateProjectStatus(Project project) {
 
-        if (project == null) {
-            throw new IllegalArgumentException("Project cannot be null.");
-        }
+        long totalTasks = project.getTasks().size();
+        long completedTasks = project.getTasks().stream()
+                .filter(task -> task.getStatus() == TaskStatus.COMPLETED)
+                .count();
 
-        List<Task> tasks = project.getTasks();
-        int total = project.getTaskCount();
+        long pendingTasks = totalTasks - completedTasks;
 
-        if (tasks == null || total == 0) {
-            return new StatusReport(0, 0, 0, 0.0);
-        }
+        double percentageCompleted = totalTasks == 0
+                ? 0.0
+                : (completedTasks * 100.0) / totalTasks;
 
-        int completed = 0;
-        int pending = 0;
-        Map<String, Integer> userTaskSummary = new HashMap<>();
+        Map<String, Integer> userSummary = project.getTasks().stream()
+                .filter(task -> task.getStatus() == TaskStatus.COMPLETED)
+                .collect(Collectors.groupingBy(
+                        task -> task.getAssignedUser().getName(),
+                        Collectors.summingInt(t -> 1)
+                ));
 
-        for (int i = 0; i < total; i++) {
-            Task t = tasks.get(i);
-            if (t != null) {
-                if (t.isCompleted()) {
-                    completed++;
-                } else {
-                    pending++;
-                }
-
-                // Track per-user tasks (optional)
-                if (t.getAssignedUser() != null) {
-                    String username = t.getAssignedUser().getName();
-                    userTaskSummary.put(username, userTaskSummary.getOrDefault(username, 0) + (t.isCompleted() ? 1 : 0));
-                }
-            }
-        }
-
-        double percent = (double) completed / total * 100;
-        percent = Math.round(percent * 100) / 100.0;
-
-        return new StatusReport(total, completed, pending, percent, userTaskSummary);
+        return new StatusReport(
+                (int) totalTasks,
+                (int) completedTasks,
+                (int) pendingTasks,
+                percentageCompleted,
+                userSummary
+        );
     }
 
     /**
