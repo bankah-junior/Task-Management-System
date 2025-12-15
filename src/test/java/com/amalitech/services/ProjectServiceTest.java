@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 class ProjectServiceTest {
     @Test
     void testAddProject() {
-        ProjectService projectService = new ProjectService(1);
+        ProjectService projectService = new ProjectService();
         Project project = new SoftwareProject(1, "Alpha", "Software project for app", 10000, 5);
         projectService.addProject(project);
         Assertions.assertNotNull(projectService.getProjectById(project.getId()));
@@ -17,7 +17,7 @@ class ProjectServiceTest {
 
     @Test
     void testUpdateProject() {
-        ProjectService projectService = new ProjectService(1);
+        ProjectService projectService = new ProjectService();
         Project project = new SoftwareProject(1, "Alpha", "Software project for app", 10000, 5);
         projectService.addProject(project);
         boolean updatedProject = projectService.updateProject(project.getId(), "Beta", "Updated description", 15000, 6);
@@ -26,7 +26,7 @@ class ProjectServiceTest {
 
     @Test
     void testDeleteProject() {
-        ProjectService projectService = new ProjectService(1);
+        ProjectService projectService = new ProjectService();
         Project project = new SoftwareProject(1, "Alpha", "Software project for app", 10000, 5);
         projectService.addProject(project);
         boolean deletedProject = projectService.deleteProject(project.getId());
@@ -36,7 +36,7 @@ class ProjectServiceTest {
 
     @Test
     void testGetProjectById() {
-        ProjectService projectService = new ProjectService(1);
+        ProjectService projectService = new ProjectService();
         Project project = new SoftwareProject(1, "Alpha", "Software project for app", 10000, 5);
         projectService.addProject(project);
         Assertions.assertNotNull(projectService.getProjectById(project.getId()));
@@ -44,7 +44,7 @@ class ProjectServiceTest {
 
     @Test
     void testGetProjects() {
-        ProjectService projectService = new ProjectService(1);
+        ProjectService projectService = new ProjectService();
         Project project = new HardwareProject(1, "Alpha", "Hardware project for app", 10000, 5);
         projectService.addProject(project);
         Assertions.assertEquals(1, projectService.getSize());

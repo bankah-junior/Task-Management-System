@@ -14,7 +14,7 @@ class TaskServiceTest {
     @Test
     void testAddTaskToProject() {
         TaskService taskService = new TaskService();
-        ProjectService projectService = new ProjectService(10);
+        ProjectService projectService = new ProjectService();
         UserService userService = new UserService();
         User regular1 = userService.createUser("Bob", "bob@example.com", "REGULAR_USER");
         Project project = new SoftwareProject(1, "Alpha", "Software project for app", 10000, 5);
@@ -29,7 +29,7 @@ class TaskServiceTest {
     @Test
     void testGetTasksByProject() {
         TaskService taskService = new TaskService();
-        ProjectService projectService = new ProjectService(10);
+        ProjectService projectService = new ProjectService();
         UserService userService = new UserService();
         User regular1 = userService.createUser("Bob", "bob@example.com", "REGULAR_USER");
         Project project = new SoftwareProject(1, "Alpha", "Software project for app", 10000, 5);
@@ -41,7 +41,7 @@ class TaskServiceTest {
     @Test
     void testGetTaskById() {
         TaskService taskService = new TaskService();
-        ProjectService projectService = new ProjectService(10);
+        ProjectService projectService = new ProjectService();
         UserService userService = new UserService();
         User regular1 = userService.createUser("Bob", "bob@example.com", "REGULAR_USER");
         Project project = new SoftwareProject(1, "Alpha", "Software project for app", 10000, 5);
@@ -53,7 +53,7 @@ class TaskServiceTest {
     @Test
     void testUpdateTask() {
         TaskService taskService = new TaskService();
-        ProjectService projectService = new ProjectService(10);
+        ProjectService projectService = new ProjectService();
         UserService userService = new UserService();
         User regular1 = userService.createUser("Bob", "bob@example.com", "REGULAR_USER");
         Project project = new SoftwareProject(1, "Alpha", "Software project for app", 10000, 5);
@@ -69,7 +69,7 @@ class TaskServiceTest {
     @Test
     void testDeleteTask() {
         TaskService taskService = new TaskService();
-        ProjectService projectService = new ProjectService(10);
+        ProjectService projectService = new ProjectService();
         UserService userService = new UserService();
         User regular1 = userService.createUser("Bob", "bob@example.com", "REGULAR_USER");
         Project project = new SoftwareProject(1, "Alpha", "Software project for app", 10000, 5);

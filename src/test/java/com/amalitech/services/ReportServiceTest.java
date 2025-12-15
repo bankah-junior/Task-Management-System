@@ -12,7 +12,7 @@ class ReportServiceTest {
 
     @Test
     void testGenerateProjectStatus() {
-        ProjectService projectService = new ProjectService(1);
+        ProjectService projectService = new ProjectService();
         TaskService taskService = new TaskService();
         UserService userService = new UserService();
         User admin = userService.createUser("Alice", "alice@example.com", "ADMIN");
@@ -31,7 +31,7 @@ class ReportServiceTest {
 
     @Test
     void testCompletedRate() {
-        ProjectService projectService = new ProjectService(1);
+        ProjectService projectService = new ProjectService();
         TaskService taskService = new TaskService();
         UserService userService = new UserService();
         User admin = userService.createUser("Alice", "alice@example.com", "ADMIN");

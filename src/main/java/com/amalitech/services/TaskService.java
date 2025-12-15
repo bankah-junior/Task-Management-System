@@ -6,6 +6,8 @@ import com.amalitech.models.User;
 import com.amalitech.utils.TaskStatus;
 import com.amalitech.utils.exceptions.TaskNotFoundException;
 
+import java.util.List;
+
 public class TaskService {
 
     private ProjectService projectService;
@@ -23,7 +25,7 @@ public class TaskService {
     public void addTaskToProject(Project project, String taskName, TaskStatus status, User assignedUser, int hours) {
 
         for (int i = 0; i < project.getTaskCount(); i++) {
-            Task t = project.getTasks()[i];
+            Task t = project.getTasks().get(i);
             if (t.getName().equalsIgnoreCase(taskName)) {
                 System.out.println("Task name already exists in this project!");
                 return;
@@ -74,18 +76,13 @@ public class TaskService {
      * @param taskId The ID of the task to delete.
      */
     public void deleteTask(Project project, int taskId) {
-        Task[] tasks = project.getTasks();
+        List<Task> tasks = project.getTasks();
         int count = project.getTaskCount();
         boolean found = false;
 
         for (int i = 0; i < count; i++) {
-            if (tasks[i].getId() == taskId) {
-                // Shift left
-                for (int j = i; j < count - 1; j++) {
-                    tasks[j] = tasks[j + 1];
-                }
-                tasks[count - 1] = null;
-                project.decrementTaskCount();
+            if (tasks.get(i).getId() == taskId) {
+                tasks.remove(i);
                 found = true;
                 System.out.println("Task deleted successfully!");
                 break;
@@ -104,12 +101,11 @@ public class TaskService {
      * @return The Task object with the specified ID.
      * @throws TaskNotFoundException if the task with the specified ID is not found.
      */
-    public Task getTaskById(int taskId, Task[] tasks) {
-        for (Task t : tasks) {
-            if (t.getId() == taskId) {
-                return t;
-            }
-        }
+    public Task getTaskById(int taskId, List<Task> tasks) {
+        tasks.stream().filter(t -> t.getId() == taskId).findFirst()
+                .ifPresent(t -> {
+                    throw new RuntimeException("Task found: " + t.getName());
+                });
         throw new TaskNotFoundException("Task with ID " + taskId + " not found.");
     }
 }

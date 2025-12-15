@@ -3,18 +3,24 @@ package com.amalitech.services;
 import com.amalitech.models.Project;
 import com.amalitech.utils.exceptions.EmptyProjectException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ProjectService {
 
-    private Project[] projects;
+    private final List<Project> projects;
     private int size = 0;
 
-    public ProjectService(int capacity) {
-        projects = new Project[capacity];
+    /**
+     * Initializes the ProjectService with an empty project list.
+     */
+    public ProjectService() {
+        this.projects = new ArrayList<>();
     }
 
     public int getSize() {
+        this.size = projects.size();
         return size;
     }
 
@@ -23,11 +29,10 @@ public class ProjectService {
      * @param project The project to be added.
      */
     public void addProject(Project project) {
-        if (size < projects.length) {
-            projects[size++] = project;
+        if (projects.add(project)) {
             System.out.println("Project added successfully!");
         } else {
-            System.out.println("Project list is full!");
+            System.out.println("Failed to add project.");
         }
     }
 
@@ -39,7 +44,7 @@ public class ProjectService {
         System.out.println("ID   | PROJECT NAME         | TYPE             | TEAM SIZE  |   BUDGET   | DESCRIPTION");
         System.out.println("--------------------------------------------------------------------------------------");
         for (int i = 0; i < size; i++) {
-            displayProjectHorizontal(projects[i]);
+            displayProjectHorizontal(projects.get(i));
         }
         System.out.println("--------------------------------------------------------------------------------------");
         System.out.println("Total Projects: " + getSize());
@@ -57,12 +62,12 @@ public class ProjectService {
         System.out.println("--------------------------------------------------------------------------------------");
 
         for (int i = 0; i < size; i++) {
-            if (projects[i].getProjectDetails().equalsIgnoreCase(type)) {
-                displayProjectHorizontal(projects[i]);
-
+            if (projects.get(i).getProjectDetails().equalsIgnoreCase(type)) {
+                displayProjectHorizontal(projects.get(i));
                 found = true;
             }
         }
+        System.out.println("--------------------------------------------------------------------------------------");
         if (!found) System.out.println("No projects found for type: " + type);
     }
 
@@ -79,9 +84,9 @@ public class ProjectService {
         System.out.println("--------------------------------------------------------------------------------------");
 
         for (int i = 0; i < size; i++) {
-            double budget = projects[i].getBudget();
+            double budget = projects.get(i).getBudget();
             if (budget >= min && budget <= max) {
-                displayProjectHorizontal(projects[i]);
+                displayProjectHorizontal(projects.get(i));
                 found = true;
             }
         }
@@ -126,28 +131,7 @@ public class ProjectService {
      * @return true if the project was deleted successfully, false otherwise.
      */
     public boolean deleteProject(int projectId) {
-        int index = -1;
-        for (int i = 0; i < size; i++) {
-            if (projects[i].getId() == projectId) {
-                index = i;
-                break;
-            }
-        }
-
-        if (index == -1) {
-            System.out.println("Project ID not found.");
-            return false;
-        }
-
-        // Shift elements to left
-        for (int i = index; i < size - 1; i++) {
-            projects[i] = projects[i + 1];
-        }
-        projects[size - 1] = null;
-        size--;
-
-        System.out.println("Project deleted successfully!");
-        return true;
+        return projects.removeIf(p -> p.getId() == projectId);
     }
 
     /**
@@ -156,10 +140,10 @@ public class ProjectService {
      * @return The project with the specified ID, or null if not found.
      */
     public Project getProjectById(int id) {
-        for (int i = 0; i < size; i++) {
-            if (projects[i].getId() == id) return projects[i];
-        }
-        return null;
+        return projects.stream()
+                .filter(p -> p.getId() == id)
+                .findFirst()
+                .orElse(null);
     }
 
      /**
@@ -167,7 +151,7 @@ public class ProjectService {
       * @return An array of all projects.
       */
     public Project[] getProjects() {
-        return Arrays.copyOf(projects, size);
+        return projects.toArray(new Project[0]);
     }
 
     /**
@@ -187,7 +171,7 @@ public class ProjectService {
         System.out.println("ID   | TASK NAME            | STATUS");
         System.out.println("--------------------------------------------------");
         for (int i = 0; i < project.getTaskCount(); i++) {
-            System.out.printf("%-4d | %-20s | %-15s\n", project.getTasks()[i].getId(), project.getTasks()[i].getName(), project.getTasks()[i].getStatus());
+            System.out.printf("%-4d | %-20s | %-15s\n", project.getTasks().get(i).getId(), project.getTasks().get(i).getName(), project.getTasks().get(i).getStatus());
         }
         System.out.println("--------------------------------------------------");
         System.out.println("Total Tasks: " + project.getTaskCount());
