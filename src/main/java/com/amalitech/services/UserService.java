@@ -5,17 +5,12 @@ import com.amalitech.models.Project;
 import com.amalitech.models.Task;
 import com.amalitech.models.AdminUser;
 import com.amalitech.models.RegularUser;
-import com.amalitech.utils.FileUtils;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class UserService {
 
-    private static final String USER_FILE = "src/data/users_data.json";
     private List<User> users;
 
     public UserService() {
@@ -183,86 +178,4 @@ public class UserService {
 
     }
 
-    /**
-     * Persists all users to the JSON storage file.
-     * <p>
-     * The users are written as a JSON array using NIO file operations.
-     * Trailing commas are avoided to maintain valid JSON format.
-     * </p>
-     */
-    public void saveUsers() {
-        try {
-            List<String> jsonLines = new ArrayList<>();
-
-            jsonLines.add("[");
-
-            jsonLines.addAll(
-                    users.stream()
-                            .map(User::toJson)
-                            .collect(java.util.stream.Collectors.toList())
-            );
-
-            // Add commas between JSON objects (but not after the last one)
-            for (int i = 1; i < jsonLines.size() - 1; i++) {
-                if (i < jsonLines.size() - 1) {
-                    jsonLines.set(i, jsonLines.get(i) + ",");
-                }
-            }
-
-            jsonLines.add("]");
-
-            FileUtils.writeAllLines(USER_FILE, jsonLines);
-            System.out.println("Users saved successfully.");
-
-        } catch (IOException e) {
-            System.out.println("Failed to save users: " + e.getMessage());
-        }
-    }
-
-    /**
-     * Loads users from the JSON persistence file into memory.
-     * <p>
-     * Existing users are cleared before loading.
-     * User IDs are preserved and the internal ID counter is updated accordingly.
-     * </p>
-     */
-    public void loadUsers() {
-        try {
-            String json = String.join("", FileUtils.readAllLines(USER_FILE));
-
-            Pattern pattern = Pattern.compile(
-                    "\\{\\s*\"id\"\\s*:\\s*(\\d+),\\s*" +
-                            "\"name\"\\s*:\\s*\"(.*?)\",\\s*" +
-                            "\"email\"\\s*:\\s*\"(.*?)\",\\s*" +
-                            "\"role\"\\s*:\\s*\"(.*?)\"\\s*}"
-            );
-
-            Matcher matcher = pattern.matcher(json);
-
-            users.clear();
-            int nextId = 1;
-
-            while (matcher.find()) {
-                int id = Integer.parseInt(matcher.group(1));
-                String name = matcher.group(2);
-                String email = matcher.group(3);
-                String role = matcher.group(4);
-
-                User user = new User(name, email, role) {
-                    @Override
-                    public void displayPermissions() {
-
-                    }
-                };
-                users.add(user);
-
-                nextId = Math.max(nextId, id + 1);
-            }
-
-            System.out.println("Users loaded successfully.");
-
-        } catch (IOException e) {
-            System.out.println("Failed to load users: " + e.getMessage());
-        }
-    }
 }

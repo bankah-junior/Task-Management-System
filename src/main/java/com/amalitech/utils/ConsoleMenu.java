@@ -1,6 +1,5 @@
 package com.amalitech.utils;
 
-import java.util.List;
 import java.util.Scanner;
 import com.amalitech.services.ProjectService;
 import com.amalitech.services.TaskService;
@@ -42,7 +41,7 @@ public class ConsoleMenu {
                 case 3 -> userMenu();
                 case 4 -> reportMenu();
                 case 5 -> login();
-                case 6 -> saveAndExit();
+                case 6 -> System.out.println("Exiting... Goodbye!");
             }
         } while (choice != 6);
     }
@@ -60,11 +59,11 @@ public class ConsoleMenu {
             loggedInUser = userService.login(userId);
             if (loggedInUser == null) {
                 System.out.println("Invalid ID. Exiting.");
-                saveAndExit();
+                System.exit(0);
             }
         } else {
             System.out.println("Enter a valid number!");
-            saveAndExit();
+            System.exit(0);
         }
     }
 
@@ -168,7 +167,7 @@ public class ConsoleMenu {
                 String minInput = scanner.nextLine();
                 if (!ValidationUtils.isInteger(minInput)) {
                     System.out.println("Enter a valid number!");
-                    saveAndExit();
+                    System.exit(0);
                 }
                 min = Integer.parseInt(minInput);
                 System.out.print("Enter maximum budget: ");
@@ -176,12 +175,12 @@ public class ConsoleMenu {
                 String maxInput = scanner.nextLine();
                 if (!ValidationUtils.isInteger(maxInput)) {
                     System.out.println("Enter a valid number!");
-                    saveAndExit();
+                    System.exit(0);
                 }
                 max = Integer.parseInt(maxInput);
                 if (!ValidationUtils.isValidRange(min, max)) {
                     System.out.println("Max(" + max + ") should be greater than Min(" + min + ")");
-                    saveAndExit();
+                    System.exit(0);
                 }
                 projectService.searchByBudget(min,max);
             }
@@ -194,25 +193,25 @@ public class ConsoleMenu {
         String name = scanner.nextLine();
         if (!ValidationUtils.isValidName(name)) {
             System.out.println("Enter a valid name!!");
-            saveAndExit();
+            System.exit(0);
         }
         System.out.print("Description: ");
         String desc = scanner.nextLine();
         if (!ValidationUtils.isValidName(desc)) {
             System.out.println("Enter a valid description!!");
-            saveAndExit();
+            System.exit(0);
         }
         System.out.print("Team Size: ");
         int teamSize;
         String teamSizeInput = scanner.nextLine();
         if (!ValidationUtils.isInteger(teamSizeInput)) {
             System.out.println("Enter a valid number!");
-            saveAndExit();
+            System.exit(0);
         }
         teamSize = Integer.parseInt(teamSizeInput);
         if (teamSize < 0) {
             System.out.println("Team size cannot be negative!");
-            saveAndExit();
+            System.exit(0);
         }
         System.out.print("Budget: ");
         double budget = 0;
@@ -220,17 +219,17 @@ public class ConsoleMenu {
         try {
             if (!ValidationUtils.isDouble(budgetInput)) {
                 System.out.println("Enter a valid number!");
-                saveAndExit();
+                System.exit(0);
             } else {
                 budget = Integer.parseInt(budgetInput);
             }
         } catch (InvalidInputException e) {
             System.out.println(e.getMessage());
-            saveAndExit();
+            System.exit(0);
         }
         if (budget < 0) {
             System.out.println("Budget cannot be negative!");
-            saveAndExit();
+            System.exit(0);
         }
         System.out.print("Type (Software/Hardware): ");
         String type = scanner.nextLine();
@@ -241,7 +240,7 @@ public class ConsoleMenu {
             project = new HardwareProject(projectService.getSize() + 1, name, desc, budget, teamSize);
         } else {
             System.out.println("Enter a valid type!!");
-            saveAndExit();
+            System.exit(0);
         }
 
         projectService.addProject(project);
@@ -255,12 +254,12 @@ public class ConsoleMenu {
         System.out.print("New Team Size: "); int teamSize = Integer.parseInt(scanner.nextLine());
         if (teamSize < 0) {
             System.out.println("Team size cannot be negative!");
-            saveAndExit();
+            System.exit(0);
         }
         System.out.print("New Budget: "); double budget = Double.parseDouble(scanner.nextLine());
         if (budget < 0) {
             System.out.println("Budget cannot be negative!");
-            saveAndExit();
+            System.exit(0);
         }
 
         if (projectService.updateProject(id, name, desc, teamSize, budget)) {
@@ -394,18 +393,18 @@ public class ConsoleMenu {
                 String name = scanner.nextLine();
                 if (!ValidationUtils.isValidName(name)) {
                     System.out.println("Enter a valid name!!");
-                    saveAndExit();
+                    System.exit(0);
                 }
                 System.out.print("Email: ");
                 String email = scanner.nextLine();
                 try {
                     if (!ValidationUtils.isValidEmail(email)) {
                         System.out.println("Enter a valid email!!");
-                        saveAndExit();
+                        System.exit(0);
                     }
                 } catch (InvalidInputException e) {
                     System.out.println(e.getMessage());
-                    saveAndExit();
+                    System.exit(0);
                 }
                 System.out.print("Role (ADMIN/REGULAR_USER): ");
                 String role = scanner.nextLine();
@@ -452,16 +451,8 @@ public class ConsoleMenu {
         System.out.println("\n======================================");
         System.out.println("||      PROJECT STATUS REPORT       ||");
         System.out.println("======================================");
-        List<Project> allProjects = projectService.getProjects();
+        Project[] allProjects = projectService.getProjects();
         reportService.generateAllProjectReports(allProjects);
-    }
-
-    private void saveAndExit() {
-        projectService.saveProjects();
-        taskService.saveTasks(projectService.getProjects());
-        userService.saveUsers();
-        System.out.println("Data saved. Exiting...");
-        System.exit(0);
     }
 
     public void close() { scanner.close(); }

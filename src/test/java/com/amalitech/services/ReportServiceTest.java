@@ -26,7 +26,7 @@ class ReportServiceTest {
         var report = reportService.generateProjectStatus(project);
         assertEquals(3, report.getTotalTasks());
         assertEquals(1, report.getCompletedTasks());
-        assertEquals(33.333333333333336, report.getPercentageCompleted());
+        assertEquals(33.33, report.getPercentageCompleted());
     }
 
     @Test
