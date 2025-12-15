@@ -66,4 +66,24 @@ public abstract class User {
         );
     }
 
+    /**
+     * Converts this User object into a JSON-formatted string.
+     *
+     * @return JSON representation of the user
+     */
+    public String toJson() {
+        return String.format(
+                "  {\n" +
+                        "    \"id\": %d,\n" +
+                        "    \"name\": \"%s\",\n" +
+                        "    \"email\": \"%s\",\n" +
+                        "    \"role\": \"%s\"\n" +
+                        "  }",
+                id,
+                name,
+                email,
+                role
+        );
+    }
+
 }

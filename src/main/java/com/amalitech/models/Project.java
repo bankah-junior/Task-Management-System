@@ -94,4 +94,29 @@ public abstract class Project {
     public int getTaskCount() {
         return tasks.size();
     }
+
+    /**
+     * Converts the project to a JSON-formatted string.
+     *
+     * @return JSON representation of the project
+     */
+    public String toJson() {
+        return String.format(
+                "  {\n" +
+                        "    \"id\": %d,\n" +
+                        "    \"name\": \"%s\",\n" +
+                        "    \"description\": \"%s\",\n" +
+                        "    \"type\": \"%s\",\n" +
+                        "    \"budget\": %.2f,\n" +
+                        "    \"teamSize\": %d\n" +
+                        "  }",
+                id,
+                name,
+                description,
+                getProjectDetails(),
+                budget,
+                teamSize
+        );
+    }
+
 }

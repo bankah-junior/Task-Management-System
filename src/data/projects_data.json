@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "Alpha",
+    "description": "Software project for app",
+    "type": "Hardware Project",
+    "budget": 10000.00,
+    "teamSize": 5
+  },
+  {
+    "id": 2,
+    "name": "Beta",
+    "description": "Hardware testing project",
+    "type": "Hardware Project",
+    "budget": 15000.00,
+    "teamSize": 3
+  },
+  {
+    "id": 3,
+    "name": "Gamma",
+    "description": "New web platform",
+    "type": "Hardware Project",
+    "budget": 20000.00,
+    "teamSize": 6
+  },
+  {
+    "id": 4,
+    "name": "Delta",
+    "description": "IoT sensor hardware",
+    "type": "Hardware Project",
+    "budget": 18000.00,
+    "teamSize": 4
+  },
+  {
+    "id": 5,
+    "name": "Epsilon",
+    "description": "Mobile game development",
+    "type": "Hardware Project",
+    "budget": 12000.00,
+    "teamSize": 5
+  },
+  {
+    "id": 6,
+    "name": "Zeta",
+    "description": "Robotics assembly",
+    "type": "Hardware Project",
+    "budget": 25000.00,
+    "teamSize": 8
+  }
+]

@@ -3,6 +3,7 @@ package com.amalitech.services;
 import com.amalitech.models.Project;
 import com.amalitech.models.Task;
 import com.amalitech.models.StatusReport;
+import com.amalitech.utils.FunctionalUtils;
 import com.amalitech.utils.TaskStatus;
 
 import java.util.HashMap;
@@ -21,9 +22,7 @@ public class ReportService {
     public StatusReport generateProjectStatus(Project project) {
 
         long totalTasks = project.getTasks().size();
-        long completedTasks = project.getTasks().stream()
-                .filter(task -> task.getStatus() == TaskStatus.COMPLETED)
-                .count();
+        long completedTasks = FunctionalUtils.filterTasks(project.getTasks(), t -> t.getStatus() == TaskStatus.COMPLETED).size();
 
         long pendingTasks = totalTasks - completedTasks;
 
@@ -34,7 +33,7 @@ public class ReportService {
         Map<String, Integer> userSummary = project.getTasks().stream()
                 .filter(task -> task.getStatus() == TaskStatus.COMPLETED)
                 .collect(Collectors.groupingBy(
-                        task -> task.getAssignedUser().getName(),
+                        Task::getName,
                         Collectors.summingInt(t -> 1)
                 ));
 
@@ -51,7 +50,7 @@ public class ReportService {
      * Generates status reports for all projects.
      * @param projects The array of projects for which to generate status reports.
      */
-    public void generateAllProjectReports(Project[] projects) {
+    public void generateAllProjectReports(List<Project> projects) {
         double totalCompletion = 0.0;
         double averageCompletion = 0.0;
         System.out.println("---------------------------------------------------------------------");
@@ -69,7 +68,7 @@ public class ReportService {
                     statusReport.getPercentageCompleted()
             );
         }
-        averageCompletion = totalCompletion / projects.length;
+        averageCompletion = totalCompletion / projects.size();
         System.out.println("---------------------------------------------------------------------");
         System.out.println("AVERAGE COMPLETION: " + averageCompletion + "%");
         System.out.println("---------------------------------------------------------------------");
@@ -86,26 +85,12 @@ public class ReportService {
         }
 
         List<Task> tasks = project.getTasks();
-        int total = project.getTaskCount();
-
-        if (tasks == null || total == 0) {
-            return 0.00;
+        if (tasks.isEmpty()) {
+            return 0.0;
         }
 
-        int completed = 0;
-
-        for (int i = 0; i < total; i++) {
-            Task t = tasks.get(i);
-            if (t != null) {
-                if (t.isCompleted()) {
-                    completed++;
-                }
-            }
-        }
-
-        double percent = (double) completed / total * 100;
-        percent = Math.round(percent * 100) / 100.0;
-
-        return percent;
+        return tasks.stream()
+                .filter(t -> t.getStatus() == TaskStatus.COMPLETED)
+                .count() * 100.0 / tasks.size();
     }
 }
