@@ -128,8 +128,7 @@ public class UserMenu {
         }
     }
 
-    public User setLoggedInUser(User user) {
-        this.loggedInUser = user;
-        return this.loggedInUser;
+    public void setLoggedInUser(User loggedInUser) {
+        this.loggedInUser = loggedInUser;
     }
 }

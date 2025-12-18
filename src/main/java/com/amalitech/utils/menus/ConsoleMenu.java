@@ -45,7 +45,7 @@ public class ConsoleMenu {
 
         int choice;
         do {
-            displayMainMenu();
+            dmm.displayMainMenu();
             choice = gmc.getMenuChoice(6);
 
             switch (choice) {
@@ -75,7 +75,6 @@ public class ConsoleMenu {
         System.out.println("\n==============================================");
         System.out.println("||  JAVA PROJECT MANAGEMENT SYSTEM (LOGIN)  ||");
         System.out.println("==============================================");
-//        userService.displayUsers();
         System.out.print("Enter your User ID to login: ");
         int userId;
         String input = scanner.nextLine();
@@ -85,6 +84,7 @@ public class ConsoleMenu {
                 loggedInUser = userService.login(userId);
                 um.setLoggedInUser(loggedInUser);
                 pm.setLoggedInUser(loggedInUser);
+                dmm.setLoggedInUser(loggedInUser);
                 if (loggedInUser == null) {
                     System.out.println("Invalid ID. Exiting.");
                     System.exit(0);
@@ -94,21 +94,6 @@ public class ConsoleMenu {
             System.out.println("Invalid input. Try again.");
             login();
         }
-    }
-
-    private void displayMainMenu() {
-        System.out.println("\n======================================");
-        System.out.println("||  JAVA PROJECT MANAGEMENT SYSTEM  ||");
-        System.out.println("======================================");
-        System.out.println("\nCurrent User: " + loggedInUser.getName() + " (" + loggedInUser.getRole() + ")");
-        System.out.println("\nMain Menu");
-        System.out.println("---------");
-        System.out.println("1. Manage Project");
-        System.out.println("2. Manage Tasks");
-        System.out.println("3. Manage Users");
-        System.out.println("4. View Status Reports");
-        System.out.println("5. Switch User");
-        System.out.println("6. Exit");
     }
 
     public void close() { scanner.close(); }
