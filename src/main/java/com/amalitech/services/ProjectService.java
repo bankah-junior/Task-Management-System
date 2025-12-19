@@ -213,7 +213,7 @@ public class ProjectService {
     /**
      * Saves all projects to a JSON file.
      */
-    public void saveProjects() {
+    public synchronized void saveProjects() {
         try {
             List<String> jsonLines = new ArrayList<>();
             jsonLines.add("[");
@@ -226,8 +226,7 @@ public class ProjectService {
             jsonLines.add("]");
 
             FileUtils.writeAllLines(PROJECT_FILE, jsonLines);
-            System.out.println("Projects saved successfully.");
-
+//            System.out.println("Projects saved successfully.");
         } catch (IOException e) {
             System.out.println("Failed to save projects: " + e.getMessage());
         }

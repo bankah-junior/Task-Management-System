@@ -1,84 +1,149 @@
-# Task Management System (Java Console Application)
+Below is an **updated, modernized `README.md`** that accurately reflects **everything we’ve upgraded and implemented so far**, while keeping it clean, professional, and portfolio-ready.
 
-## Overview
-This is a simple **Task Management System** built in Java using **OOP concepts**. It simulates project, task, and user management without a database. The system is console-based and supports:
-
-- Project Catalog Management (Software/Hardware projects)
-- Task Operations (add, update, delete tasks)
-- User Management (Admin/Regular users, role-based access)
-- Status Processing & Reporting (completion percentages, pending tasks)
-- Menu Navigation & User Experience (interactive console menus)
+You can **replace your existing README.md entirely** with this version.
 
 ---
 
-## Features
+# Task Management System
 
-### 1. Project Catalog Management
-- Create software or hardware projects
-- View all projects with details (ID, name, description, team size, budget)
-- Filter projects by type
-
-### 2. Task Operations
-- Add tasks to specific projects
-- Update task status or name
-- Delete tasks
-- Assign tasks to users
-- View all tasks per project
-
-### 3. User Management
-- Create Admin or Regular users
-- Assign users to projects or tasks
-- Enforce role-based permissions
-- Auto-generate unique user IDs
-
-### 4. Status Reporting
-- Display project completion percentage
-- Display total, completed, pending tasks
-- Optional per-user task completion summary
-
-### 5. Menu Navigation
-- Interactive main menu and submenus
-- Input validation
-- Role-based access enforcement
-- Continuous loop until exit
+**Java Console Application (Modern Java, Functional & Concurrent)**
 
 ---
 
-## Project Structure
+## 📌 Overview
+
+The **Task Management System** is a **console-based Java application** designed to demonstrate **core and advanced Java concepts** including **OOP**, **Collections**, **Functional Programming**, **Streams**, **File Persistence**, **Regex Validation**, **Concurrency**, and **JUnit 5 testing**.
+
+The system manages **projects**, **tasks**, and **users**, persists data to JSON files (without a database), and supports **role-based access control** with a clean and extensible architecture.
+
+---
+
+## 🚀 Key Features
+
+### 1️⃣ Project Catalog Management
+
+* Create **Software** and **Hardware** projects
+* View all projects with full details
+* Filter projects by type
+* Search projects by budget range
+* Display project completion rate
+
+### 2️⃣ Task Management
+
+* Add, update, and remove tasks
+* Assign tasks to users
+* Track task status (`TODO`, `IN_PROGRESS`, `COMPLETED`)
+* View tasks per project
+* Persist tasks across application restarts
+
+### 3️⃣ User Management
+
+* Admin and Regular users
+* Role-based access control
+* Auto-generated unique user IDs
+* Email and role validation using regex
+* Persist users to JSON storage
+
+### 4️⃣ Status Reporting & Analytics
+
+* Project completion percentage
+* Total, completed, and pending task counts
+* Optional per-user task summary
+* Streams-based aggregation and filtering
+
+### 5️⃣ File Persistence (No Database)
+
+* JSON-based storage using **Java NIO (`Files`, `Paths`)**
+* Data persisted for:
+
+    * Projects
+    * Tasks
+    * Users
+* Auto-load data on application startup
+* Auto-save in the background
+
+### 6️⃣ Functional Programming
+
+* Custom functional interfaces
+* Lambda expressions
+* Method references
+* Streams API for filtering, mapping, and reduction
+* Functional utility helpers
+
+### 7️⃣ Basic Concurrency
+
+* Background auto-save thread (`Runnable`)
+* Thread-safe persistence using `synchronized`
+* Graceful shutdown using JVM shutdown hooks
+* Non-blocking saves with daemon threads
+
+### 8️⃣ Exception Handling & Validation
+
+* Custom exceptions:
+
+    * `InvalidInputException`
+    * `TaskNotFoundException`
+    * `EmptyProjectException`
+* Regex-based input validation
+* Safe error handling with meaningful messages
+
+### 9️⃣ Testing
+
+* JUnit 5 unit tests
+* Service-level testing
+* Persistence and logic validation
+* Ready for concurrency and integration tests
+
+---
+
+## 🧱 Project Structure
 
 ```
-├── 📁 .mvn
+├── 📁 docs
+│   ├── 🖼️ Commit-Logs.png
+│   ├── 🖼️ JUnit-Test-Results.png
+│   ├── 📄 TaskManagementSystem.drawio
+│   └── 🖼️ TaskManagementSystem.png
 ├── 📁 src
+│   ├── 📁 data
+│   │   ├── ⚙️ projects_data.json
+│   │   ├── ⚙️ tasks_data.json
+│   │   └── ⚙️ users_data.json
 │   ├── 📁 main
-│   │   ├── 📁 java
-│   │   │   └── 📁 com
-│   │   │       └── 📁 amalitech
-│   │   │           ├── 📁 interfaces
-│   │   │           │   └── ☕ Completable.java
-│   │   │           ├── 📁 models
-│   │   │           │   ├── ☕ AdminUser.java
-│   │   │           │   ├── ☕ HardwareProject.java
-│   │   │           │   ├── ☕ Project.java
-│   │   │           │   ├── ☕ RegularUser.java
-│   │   │           │   ├── ☕ SoftwareProject.java
-│   │   │           │   ├── ☕ StatusReport.java
-│   │   │           │   ├── ☕ Task.java
-│   │   │           │   └── ☕ User.java
-│   │   │           ├── 📁 services
-│   │   │           │   ├── ☕ ProjectService.java
-│   │   │           │   ├── ☕ ReportService.java
-│   │   │           │   ├── ☕ TaskService.java
-│   │   │           │   └── ☕ UserService.java
-│   │   │           ├── 📁 utils
-│   │   │           │   ├── 📁 exceptions
-│   │   │           │   │   ├── ☕ EmptyProjectException.java
-│   │   │           │   │   ├── ☕ InvalidInputException.java
-│   │   │           │   │   └── ☕ TaskNotFoundException.java
-│   │   │           │   ├── ☕ ConsoleMenu.java
-│   │   │           │   ├── ☕ TaskStatus.java
-│   │   │           │   └── ☕ ValidationUtils.java
-│   │   │           └── ☕ Main.java
-│   │   └── 📁 resources
+│   │   └── 📁 java
+│   │       └── 📁 com
+│   │           └── 📁 amalitech
+│   │               ├── 📁 concurrency
+│   │               │   └── ☕ AutoSaveTask.java
+│   │               ├── 📁 interfaces
+│   │               │   ├── ☕ Completable.java
+│   │               │   └── ☕ TaskFilter.java
+│   │               ├── 📁 models
+│   │               │   ├── ☕ AdminUser.java
+│   │               │   ├── ☕ HardwareProject.java
+│   │               │   ├── ☕ Project.java
+│   │               │   ├── ☕ RegularUser.java
+│   │               │   ├── ☕ SoftwareProject.java
+│   │               │   ├── ☕ StatusReport.java
+│   │               │   ├── ☕ Task.java
+│   │               │   └── ☕ User.java
+│   │               ├── 📁 services
+│   │               │   ├── ☕ ProjectService.java
+│   │               │   ├── ☕ ReportService.java
+│   │               │   ├── ☕ TaskService.java
+│   │               │   └── ☕ UserService.java
+│   │               ├── 📁 utils
+│   │               │   ├── 📁 exceptions
+│   │               │   │   ├── ☕ EmptyProjectException.java
+│   │               │   │   ├── ☕ InvalidInputException.java
+│   │               │   │   └── ☕ TaskNotFoundException.java
+│   │               │   ├── ☕ ConsoleMenu.java
+│   │               │   ├── ☕ FileUtils.java
+│   │               │   ├── ☕ FunctionalUtils.java
+│   │               │   ├── ☕ RegexValidator.java
+│   │               │   ├── ☕ TaskStatus.java
+│   │               │   └── ☕ ValidationUtils.java
+│   │               └── ☕ Main.java
 │   └── 📁 test
 │       └── 📁 java
 │           └── 📁 com
@@ -90,67 +155,120 @@ This is a simple **Task Management System** built in Java using **OOP concepts**
 │                       └── ☕ UserServiceTest.java
 ├── ⚙️ .gitignore
 ├── 📝 APPROACH_USED.md
-├── 🖼️ JUnit-Test-Results.png
 ├── 📝 README.md
 ├── 📝 THOUGHT_PROCESS.md
-├── 📄 TaskManagementSystem.drawio
-├── 🖼️ TaskManagementSystem.png
 └── ⚙️ pom.xml
 ```
 
 ---
 
-## Setup Instructions
+## ⚙️ Setup Instructions
 
-1. **Clone or download** the project.
-2. **Open in your IDE** (e.g., IntelliJ IDEA, Eclipse, VSCode).
-3. **Compile all `.java` files**.
-4. **Run `Main.java`** to start the console application.
+1. **Clone the repository**
 
----
+   ```bash
+   git clone <repository-url>
+   ```
 
-## Usage Guide
+2. **Open in an IDE**
 
-1. **Login**
-    - Select your User ID to log in.
-    - Admins have full access; Regular users have limited permissions.
+    * IntelliJ IDEA (recommended)
+    * Eclipse
+    * VS Code
 
-2. **Main Menu**
-    - 1: Manage Projects
-    - 2: Manage Tasks 
-    - 3: Manage Users
-    - 4: View Status Reports
-    - 5: Switch User
-    - 6: Exit
+3. **Build the project**
 
-3. **Submenus**
-    - Follow prompts to add, update, delete, view projects/tasks/users.
-    - Use correct input types (numbers, strings, valid statuses).
+   ```bash
+   mvn clean install
+   ```
 
-4. **Exit**
-    - Select `6` from the main menu to exit the application gracefully.
+4. **Run the application**
+
+   ```bash
+   Run Main.java
+   ```
 
 ---
 
-## Notes
-- All IDs are auto-generated.
-- Maximum projects: 20; maximum tasks per project: 20.
-- All data is stored in memory (arrays, lists). Database integration can be added later.
+## 🧭 Usage Guide
+
+### Login
+
+* Select a user ID to log in
+* Admins have full access
+* Regular users have restricted permissions
+
+### Main Menu
+
+```
+1. Manage Projects
+2. Manage Tasks
+3. View Status Reports
+4. Switch User
+5. Exit
+```
+
+### Exit
+
+* Application performs a **final auto-save**
+* Data remains persisted for next startup
 
 ---
 
-## JUnit Test
+## 🧪 Testing
 
-### Steps
-  1. Navigate into the `test folder`.
-  2. Right-click on the `java folder`.
-  3. Click on `Run All Tests`
+### Run Tests
 
-### Results
-![Results of JUnit test cases](docs/JUnit-Test-Results.png)
+```bash
+mvn test
+```
 
-## Git Commit Logs
+### Covered Areas
 
-### Screenshot of some git commit logs
+* Services logic
+* Functional utilities
+* Persistence behavior
+* Report calculations
 
-![Screenshot of Git Commit Logs](docs/Commit-Logs.png)
+---
+
+## 🧠 Design Principles Used
+
+* Object-Oriented Programming (OOP)
+* SOLID principles
+* Separation of concerns
+* Functional programming
+* Thread safety
+* Clean architecture
+* Javadoc-only documentation
+
+---
+
+## 📈 Future Enhancements
+
+* ExecutorService-based concurrency
+* Advanced analytics dashboard
+* JSON parsing using libraries (Jackson/Gson)
+* REST API layer (Spring Boot)
+* Database integration
+
+---
+
+## 📄 License
+
+This project is for **educational and demonstration purposes**.
+
+--- 
+
+## JUnit Test 
+
+### Steps 
+    1. Navigate into the test folder. 
+    2. Right-click on the java folder. 
+    3. Click on Run All Tests 
+
+### Results ![Results of JUnit test cases](docs/JUnit-Test-Results.png) 
+
+## Git Commit Logs 
+
+### Screenshot of some git commit logs ![Screenshot of Git Commit Logs](docs/Commit-Logs.png)
