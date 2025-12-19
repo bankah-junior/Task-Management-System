@@ -16,5 +16,11 @@
     "name": "Bankah",
     "email": "bankah@gmail.com",
     "role": "ADMIN"
+  },
+  {
+    "id": 4,
+    "name": "Yosh",
+    "email": "yosh@yosh.com",
+    "role": "ADMIN"
   }
 ]
