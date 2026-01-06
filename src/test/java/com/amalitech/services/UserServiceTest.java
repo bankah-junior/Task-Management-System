@@ -2,6 +2,9 @@ package com.amalitech.services;
 
 import com.amalitech.models.User;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.parallel.Isolated;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -113,20 +116,23 @@ class UserServiceTest {
     @Nested
     @DisplayName("Get User By ID")
     class GetUserByIdTests {
-
-        @Test
+        
         @DisplayName("Should return correct user by ID")
-        void testShouldGetUserById() {
+        @ParameterizedTest
+        @ValueSource(ints = {1, 2, 999})
+        void testShouldGetUserById(int userId) {
             // Arrange
             User admin = createAdmin();
             User regular = createRegular();
 
             // Assert
-            assertAll(
-                    () -> assertEquals(admin, userService.getUserById(admin.getId())),
-                    () -> assertEquals(regular, userService.getUserById(regular.getId())),
-                    () -> assertNull(userService.getUserById(999))
-            );
+            if (userId == admin.getId()) {
+                assertEquals(admin, userService.getUserById(userId));
+            } else if (userId == regular.getId()) {
+                assertEquals(regular, userService.getUserById(userId));
+            } else {
+                assertNull(userService.getUserById(userId));
+            }
         }
     }
 
