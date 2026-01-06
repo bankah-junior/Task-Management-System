@@ -1,20 +1,32 @@
 package com.amalitech.services;
 
+import com.amalitech.models.HardwareProject;
 import com.amalitech.models.Project;
+import com.amalitech.models.SoftwareProject;
+import com.amalitech.utils.FileUtils;
 import com.amalitech.utils.exceptions.EmptyProjectException;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 public class ProjectService {
 
-    private Project[] projects;
+    private static final String PROJECT_FILE = "src/data/projects_data.json";
+    private final List<Project> projects;
     private int size = 0;
 
-    public ProjectService(int capacity) {
-        projects = new Project[capacity];
+    /**
+     * Initializes the ProjectService with an empty project list.
+     */
+    public ProjectService() {
+        this.projects = new ArrayList<>();
     }
 
     public int getSize() {
+        this.size = projects.size();
         return size;
     }
 
@@ -23,11 +35,10 @@ public class ProjectService {
      * @param project The project to be added.
      */
     public void addProject(Project project) {
-        if (size < projects.length) {
-            projects[size++] = project;
+        if (projects.add(project)) {
             System.out.println("Project added successfully!");
         } else {
-            System.out.println("Project list is full!");
+            System.out.println("Failed to add project.");
         }
     }
 
@@ -39,7 +50,7 @@ public class ProjectService {
         System.out.println("ID   | PROJECT NAME         | TYPE             | TEAM SIZE  |   BUDGET   | DESCRIPTION");
         System.out.println("--------------------------------------------------------------------------------------");
         for (int i = 0; i < size; i++) {
-            displayProjectHorizontal(projects[i]);
+            displayProjectHorizontal(projects.get(i));
         }
         System.out.println("--------------------------------------------------------------------------------------");
         System.out.println("Total Projects: " + getSize());
@@ -57,12 +68,12 @@ public class ProjectService {
         System.out.println("--------------------------------------------------------------------------------------");
 
         for (int i = 0; i < size; i++) {
-            if (projects[i].getProjectDetails().equalsIgnoreCase(type)) {
-                displayProjectHorizontal(projects[i]);
-
+            if (projects.get(i).getProjectDetails().equalsIgnoreCase(type)) {
+                displayProjectHorizontal(projects.get(i));
                 found = true;
             }
         }
+        System.out.println("--------------------------------------------------------------------------------------");
         if (!found) System.out.println("No projects found for type: " + type);
     }
 
@@ -79,9 +90,9 @@ public class ProjectService {
         System.out.println("--------------------------------------------------------------------------------------");
 
         for (int i = 0; i < size; i++) {
-            double budget = projects[i].getBudget();
+            double budget = projects.get(i).getBudget();
             if (budget >= min && budget <= max) {
-                displayProjectHorizontal(projects[i]);
+                displayProjectHorizontal(projects.get(i));
                 found = true;
             }
         }
@@ -126,28 +137,7 @@ public class ProjectService {
      * @return true if the project was deleted successfully, false otherwise.
      */
     public boolean deleteProject(int projectId) {
-        int index = -1;
-        for (int i = 0; i < size; i++) {
-            if (projects[i].getId() == projectId) {
-                index = i;
-                break;
-            }
-        }
-
-        if (index == -1) {
-            System.out.println("Project ID not found.");
-            return false;
-        }
-
-        // Shift elements to left
-        for (int i = index; i < size - 1; i++) {
-            projects[i] = projects[i + 1];
-        }
-        projects[size - 1] = null;
-        size--;
-
-        System.out.println("Project deleted successfully!");
-        return true;
+        return projects.removeIf(p -> p.getId() == projectId);
     }
 
     /**
@@ -156,18 +146,18 @@ public class ProjectService {
      * @return The project with the specified ID, or null if not found.
      */
     public Project getProjectById(int id) {
-        for (int i = 0; i < size; i++) {
-            if (projects[i].getId() == id) return projects[i];
-        }
-        return null;
+        return projects.stream()
+                .filter(p -> p.getId() == id)
+                .findFirst()
+                .orElse(null);
     }
 
      /**
       * Retrieves all projects.
       * @return An array of all projects.
       */
-    public Project[] getProjects() {
-        return Arrays.copyOf(projects, size);
+    public List<Project> getProjects() {
+        return projects;
     }
 
     /**
@@ -187,7 +177,7 @@ public class ProjectService {
         System.out.println("ID   | TASK NAME            | STATUS");
         System.out.println("--------------------------------------------------");
         for (int i = 0; i < project.getTaskCount(); i++) {
-            System.out.printf("%-4d | %-20s | %-15s\n", project.getTasks()[i].getId(), project.getTasks()[i].getName(), project.getTasks()[i].getStatus());
+            System.out.printf("%-4d | %-20s | %-15s\n", project.getTasks().get(i).getId(), project.getTasks().get(i).getName(), project.getTasks().get(i).getStatus());
         }
         System.out.println("--------------------------------------------------");
         System.out.println("Total Tasks: " + project.getTaskCount());
@@ -219,4 +209,96 @@ public class ProjectService {
                 project.getDescription()
         );
     }
+
+    /**
+     * Saves all projects to a JSON file.
+     */
+    public synchronized void saveProjects() {
+        try {
+            List<String> jsonLines = new ArrayList<>();
+            jsonLines.add("[");
+
+            for (int i = 0; i < projects.size(); i++) {
+                jsonLines.add(projects.get(i).toJson() +
+                        (i < projects.size() - 1 ? "," : ""));
+            }
+
+            jsonLines.add("]");
+
+            FileUtils.writeAllLines(PROJECT_FILE, jsonLines);
+//            System.out.println("Projects saved successfully.");
+        } catch (IOException e) {
+            System.out.println("Failed to save projects: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Loads projects from a JSON file.
+     */
+    public void loadProjects() {
+        try {
+            List<String> lines = FileUtils.readAllLines(PROJECT_FILE);
+
+            StringBuilder jsonObject = new StringBuilder();
+
+            for (String line : lines) {
+                line = line.trim();
+
+                if (line.startsWith("{")) {
+                    jsonObject.setLength(0);
+                }
+
+                if (!line.equals("[") && !line.equals("]")) {
+                    jsonObject.append(line);
+                }
+
+                if (line.endsWith("},") || line.endsWith("}")) {
+                    Map<String, String> values =
+                            FileUtils.parseJsonObject(jsonObject.toString());
+
+                    int id = Integer.parseInt(values.get("id"));
+                    String name = values.get("name");
+                    String description = values.get("description");
+                    String type = values.get("type");
+                    double budget = Double.parseDouble(values.get("budget"));
+                    int teamSize = Integer.parseInt(values.get("teamSize"));
+
+                    Project project = createProjectFromType(
+                            id, name, description, budget, teamSize, type
+                    );
+
+                    projects.add(project);
+                }
+            }
+
+            System.out.println("Projects loaded successfully.");
+
+        } catch (Exception e) {
+            System.out.println("Failed to load projects: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Creates a project instance based on project type.
+     *
+     * @param id project ID
+     * @param name project name
+     * @param budget project budget
+     * @param teamSize project team size
+     * @param type project type
+     * @return a Project instance
+     */
+    private Project createProjectFromType(int id,
+                                          String name,
+                                          String description,
+                                          double budget,
+                                          int teamSize,
+                                          String type) {
+
+        if ("Software".equalsIgnoreCase(type)) {
+            return new SoftwareProject(id, name, description, budget, teamSize);
+        }
+        return new HardwareProject(id, name, description, budget, teamSize);
+    }
+
 }

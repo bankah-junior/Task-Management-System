@@ -3,62 +3,54 @@ package com.amalitech.services;
 import com.amalitech.models.Project;
 import com.amalitech.models.Task;
 import com.amalitech.models.StatusReport;
+import com.amalitech.utils.FunctionalUtils;
+import com.amalitech.utils.TaskStatus;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ReportService {
 
     /**
-     * Generates a status report for a project.
-     * @param project The project for which to generate the status report.
-     * @return A StatusReport object containing the project's task statistics.
+     * Generates a project status report.
+     *
+     * @param project the project to analyze
+     * @return a StatusReport instance
      */
     public StatusReport generateProjectStatus(Project project) {
 
-        if (project == null) {
-            throw new IllegalArgumentException("Project cannot be null.");
-        }
+        long totalTasks = project.getTasks().size();
+        long completedTasks = FunctionalUtils.filterTasks(project.getTasks(), t -> t.getStatus() == TaskStatus.COMPLETED).size();
 
-        Task[] tasks = project.getTasks();
-        int total = project.getTaskCount();
+        long pendingTasks = totalTasks - completedTasks;
 
-        if (tasks == null || total == 0) {
-            return new StatusReport(0, 0, 0, 0.0);
-        }
+        double percentageCompleted = totalTasks == 0
+                ? 0.0
+                : (completedTasks * 100.0) / totalTasks;
 
-        int completed = 0;
-        int pending = 0;
-        Map<String, Integer> userTaskSummary = new HashMap<>();
+        Map<String, Integer> userSummary = project.getTasks().stream()
+                .filter(task -> task.getStatus() == TaskStatus.COMPLETED)
+                .collect(Collectors.groupingBy(
+                        Task::getName,
+                        Collectors.summingInt(t -> 1)
+                ));
 
-        for (int i = 0; i < total; i++) {
-            Task t = tasks[i];
-            if (t != null) {
-                if (t.isCompleted()) {
-                    completed++;
-                } else {
-                    pending++;
-                }
-
-                // Track per-user tasks (optional)
-                if (t.getAssignedUser() != null) {
-                    String username = t.getAssignedUser().getName();
-                    userTaskSummary.put(username, userTaskSummary.getOrDefault(username, 0) + (t.isCompleted() ? 1 : 0));
-                }
-            }
-        }
-
-        double percent = (double) completed / total * 100;
-        percent = Math.round(percent * 100) / 100.0;
-
-        return new StatusReport(total, completed, pending, percent, userTaskSummary);
+        return new StatusReport(
+                (int) totalTasks,
+                (int) completedTasks,
+                (int) pendingTasks,
+                percentageCompleted,
+                userSummary
+        );
     }
 
     /**
      * Generates status reports for all projects.
      * @param projects The array of projects for which to generate status reports.
      */
-    public void generateAllProjectReports(Project[] projects) {
+    public void generateAllProjectReports(List<Project> projects) {
         double totalCompletion = 0.0;
         double averageCompletion = 0.0;
         System.out.println("---------------------------------------------------------------------");
@@ -76,7 +68,7 @@ public class ReportService {
                     statusReport.getPercentageCompleted()
             );
         }
-        averageCompletion = totalCompletion / projects.length;
+        averageCompletion = totalCompletion / projects.size();
         System.out.println("---------------------------------------------------------------------");
         System.out.println("AVERAGE COMPLETION: " + averageCompletion + "%");
         System.out.println("---------------------------------------------------------------------");
@@ -92,27 +84,13 @@ public class ReportService {
             throw new IllegalArgumentException("Project cannot be null.");
         }
 
-        Task[] tasks = project.getTasks();
-        int total = project.getTaskCount();
-
-        if (tasks == null || total == 0) {
-            return 0.00;
+        List<Task> tasks = project.getTasks();
+        if (tasks.isEmpty()) {
+            return 0.0;
         }
 
-        int completed = 0;
-
-        for (int i = 0; i < total; i++) {
-            Task t = tasks[i];
-            if (t != null) {
-                if (t.isCompleted()) {
-                    completed++;
-                }
-            }
-        }
-
-        double percent = (double) completed / total * 100;
-        percent = Math.round(percent * 100) / 100.0;
-
-        return percent;
+        return tasks.stream()
+                .filter(t -> t.getStatus() == TaskStatus.COMPLETED)
+                .count() * 100.0 / tasks.size();
     }
 }

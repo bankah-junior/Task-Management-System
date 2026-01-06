@@ -1,5 +1,8 @@
 package com.amalitech.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Project {
 
     private int id;
@@ -8,8 +11,7 @@ public abstract class Project {
     private double budget;
     private int teamSize;
 
-    private Task[] tasks = new Task[20];
-    private int taskCount = 0;
+    protected final List<Task> tasks = new ArrayList<>();
 
     public Project(int id, String name, String description, double budget, int teamSize) {
         this.id = id;
@@ -47,19 +49,18 @@ public abstract class Project {
      */
     public boolean addTask(Task task) {
         // prevent duplicate IDs
-        for (int i = 0; i < taskCount; i++) {
-            if (tasks[i].getId() == task.getId()) {
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getId() == task.getId()) {
                 System.out.println("Task with ID " + task.getId() + " already exists!");
                 return false;
             }
         }
 
-        if (taskCount < tasks.length) {
-            tasks[taskCount++] = task;
+        if (tasks.add(task)) {
             System.out.printf("Task \"%s\" added successfully to Project %s\n", task.getName(), id);
             return true;
         } else {
-            System.out.println("Task list is full!");
+            System.out.println("Failed to add task \"" + task.getName() + "\" to Project " + id);
             return false;
         }
     }
@@ -70,9 +71,9 @@ public abstract class Project {
      * @return The task with the specified ID, or null if not found.
      */
     public Task getTaskById(int id) {
-        for (int i = 0; i < taskCount; i++) {
-            if (tasks[i].getId() == id) {
-                return tasks[i];
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getId() == id) {
+                return tasks.get(i);
             }
         }
         return null;
@@ -82,7 +83,7 @@ public abstract class Project {
      * Returns the array of tasks associated with the project.
      * @return The array of tasks.
      */
-    public Task[] getTasks() {
+    public List<Task> getTasks() {
         return tasks;
     }
 
@@ -91,13 +92,31 @@ public abstract class Project {
      * @return The number of tasks.
      */
     public int getTaskCount() {
-        return taskCount;
+        return tasks.size();
     }
 
-     /**
-     * Decrements the task count by one.
+    /**
+     * Converts the project to a JSON-formatted string.
+     *
+     * @return JSON representation of the project
      */
-    public void decrementTaskCount() {
-        if (taskCount > 0) taskCount--;
+    public String toJson() {
+        return String.format(
+                "  {\n" +
+                        "    \"id\": %d,\n" +
+                        "    \"name\": \"%s\",\n" +
+                        "    \"description\": \"%s\",\n" +
+                        "    \"type\": \"%s\",\n" +
+                        "    \"budget\": %.2f,\n" +
+                        "    \"teamSize\": %d\n" +
+                        "  }",
+                id,
+                name,
+                description,
+                getProjectDetails(),
+                budget,
+                teamSize
+        );
     }
+
 }
