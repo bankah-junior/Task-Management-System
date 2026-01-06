@@ -29,7 +29,7 @@ public class ValidationUtils {
      * @return true if the email is valid, false otherwise.
      * @throws InvalidInputException if the email format is invalid.
      */
-    public static boolean isValidEmail(String email) {
+    public static boolean isValidEmail(String email) throws InvalidInputException {
         if (email == null || email.trim().isEmpty()) return false;
 
         try {
@@ -65,7 +65,7 @@ public class ValidationUtils {
      * @return true if the input is a valid double, false otherwise.
      * @throws InvalidInputException if the double format is invalid.
      */
-    public static boolean isDouble(String input) {
+    public static boolean isDouble(String input) throws InvalidInputException {
         if (input == null || input.trim().isEmpty()) return false;
 
         try {

@@ -31,7 +31,7 @@ public class ProjectService {
         }
     }
 
-    public void displayAllProjects() {
+    public void displayAllProjects() throws EmptyProjectException {
         if (size == 0) {
             throw new EmptyProjectException("No projects available in the system.");
         }
