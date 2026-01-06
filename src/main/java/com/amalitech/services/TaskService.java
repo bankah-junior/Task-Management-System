@@ -119,7 +119,7 @@ public class TaskService {
      *
      * @param projects list of projects
      */
-    public void saveTasks(List<Project> projects) {
+    public synchronized void saveTasks(List<Project> projects) {
         try {
             List<String> jsonLines = new ArrayList<>();
             jsonLines.add("[");
@@ -140,8 +140,7 @@ public class TaskService {
             jsonLines.add("]");
 
             FileUtils.writeAllLines(TASK_FILE, jsonLines);
-            System.out.println("Tasks saved successfully.");
-
+//            System.out.println("Tasks saved successfully.");
         } catch (IOException e) {
             System.out.println("Failed to save tasks: " + e.getMessage());
         }

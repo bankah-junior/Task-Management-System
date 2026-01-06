@@ -190,7 +190,7 @@ public class UserService {
      * Trailing commas are avoided to maintain valid JSON format.
      * </p>
      */
-    public void saveUsers() {
+    public synchronized void saveUsers() {
         try {
             List<String> jsonLines = new ArrayList<>();
 
@@ -212,8 +212,7 @@ public class UserService {
             jsonLines.add("]");
 
             FileUtils.writeAllLines(USER_FILE, jsonLines);
-            System.out.println("Users saved successfully.");
-
+//            System.out.println("Users saved successfully.");
         } catch (IOException e) {
             System.out.println("Failed to save users: " + e.getMessage());
         }

@@ -44,5 +44,14 @@ public final class RegexValidator {
     public static boolean isNumeric(String value) {
         return isValid(value, "\\d+");
     }
+
+    /**
+     * Validates a user role.
+     *
+     * @param role the role to validate
+     * @return true if the role is either ADMIN or REGULAR_USER
+     */    public static boolean isValidRole(String role) {
+        return isValid(role, "^(ADMIN|REGULAR_USER)$");
+    }
 }
 
