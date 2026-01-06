@@ -1,9 +1,3 @@
-Below is an **updated, modernized `README.md`** that accurately reflects **everything we’ve upgraded and implemented so far**, while keeping it clean, professional, and portfolio-ready.
-
-You can **replace your existing README.md entirely** with this version.
-
----
-
 # Task Management System
 
 **Java Console Application (Modern Java, Functional & Concurrent)**
@@ -148,11 +142,18 @@ The system manages **projects**, **tasks**, and **users**, persists data to JSON
 │       └── 📁 java
 │           └── 📁 com
 │               └── 📁 amalitech
-│                   └── 📁 services
-│                       ├── ☕ ProjectServiceTest.java
-│                       ├── ☕ ReportServiceTest.java
-│                       ├── ☕ TaskServiceTest.java
-│                       └── ☕ UserServiceTest.java
+│                   ├── 📁 concurrency
+│                   │   └── ☕ ConcurrencyTest.java
+│                   ├── 📁 functional
+│                   │   └── ☕ FunctionalUtilsTest.java
+│                   ├── 📁 services
+│                   │   ├── ☕ ProjectServiceTest.java
+│                   │   ├── ☕ ReportServiceTest.java
+│                   │   ├── ☕ TaskServiceTest.java
+│                   │   ├── ☕ UserPersistenceTest.java
+│                   │   └── ☕ UserServiceTest.java
+│                   └── 📁 utils
+│                       └── ☕ RegexValidatorTest.java
 ├── ⚙️ .gitignore
 ├── 📝 APPROACH_USED.md
 ├── 📝 README.md
