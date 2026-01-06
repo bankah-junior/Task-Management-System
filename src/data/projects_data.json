@@ -46,5 +46,13 @@
     "type": "Hardware Project",
     "budget": 25000.00,
     "teamSize": 8
+  },
+  {
+    "id": 7,
+    "name": "NPN",
+    "description": "UNP",
+    "type": "Hardware Project",
+    "budget": 10000.00,
+    "teamSize": 7
   }
 ]

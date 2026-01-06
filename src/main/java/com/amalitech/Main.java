@@ -2,11 +2,11 @@ package com.amalitech;
 
 import com.amalitech.concurrency.AutoSaveTask;
 import com.amalitech.utils.ConsoleMenu;
+import com.amalitech.utils.menus.ConsoleMenu;
 import com.amalitech.services.ProjectService;
 import com.amalitech.services.TaskService;
 import com.amalitech.services.UserService;
 import com.amalitech.services.ReportService;
-import com.amalitech.models.*;
 
 public class Main {
     public static void main(String[] args) {
