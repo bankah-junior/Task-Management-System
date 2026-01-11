@@ -25,7 +25,7 @@ class ReportServiceTest {
 
     @BeforeEach
     void setUp() {
-        projectService = new ProjectService(5);
+        projectService = new ProjectService();
         taskService = new TaskService();
         userService = new UserService();
         reportService = new ReportService();

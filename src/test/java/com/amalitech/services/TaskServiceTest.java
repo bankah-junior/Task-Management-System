@@ -25,7 +25,7 @@ class TaskServiceTest {
     @BeforeEach
     void setUp() {
         taskService = new TaskService();
-        projectService = new ProjectService(10);
+        projectService = new ProjectService();
         userService = new UserService();
 
         regularUser = userService.createUser(

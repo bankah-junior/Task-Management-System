@@ -8,6 +8,7 @@ import com.amalitech.services.ProjectService;
 import com.amalitech.services.ReportService;
 import com.amalitech.utils.ValidationUtils;
 import com.amalitech.utils.exceptions.EmptyProjectException;
+import com.amalitech.utils.exceptions.InvalidInputException;
 
 import java.util.Scanner;
 
@@ -207,6 +208,8 @@ public class ProjectMenu {
             } catch (NumberFormatException e) {
                 System.out.println("Enter a valid number!");
                 System.out.print("Budget: ");
+            } catch (InvalidInputException e) {
+                throw new RuntimeException(e);
             }
         }
         System.out.print("Type (Software/Hardware): ");
@@ -299,7 +302,7 @@ public class ProjectMenu {
                     continue;
                 }
                 isValidBudget = true;
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException | InvalidInputException e) {
                 System.out.println("Enter a valid number!");
                 System.out.print("New Budget: ");
             }

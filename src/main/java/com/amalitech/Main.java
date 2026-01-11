@@ -1,7 +1,6 @@
 package com.amalitech;
 
 import com.amalitech.concurrency.AutoSaveTask;
-import com.amalitech.utils.ConsoleMenu;
 import com.amalitech.utils.menus.ConsoleMenu;
 import com.amalitech.services.ProjectService;
 import com.amalitech.services.TaskService;

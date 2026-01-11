@@ -17,7 +17,7 @@ class ProjectServiceTest {
 
     @BeforeEach
     void setUp() {
-        projectService = new ProjectService(5);
+        projectService = new ProjectService();
     }
 
     /**
