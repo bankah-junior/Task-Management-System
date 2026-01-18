@@ -1,9 +1,3 @@
-Below is an **updated, modernized `README.md`** that accurately reflects **everything we’ve upgraded and implemented so far**, while keeping it clean, professional, and portfolio-ready.
-
-You can **replace your existing README.md entirely** with this version.
-
----
-
 # Task Management System
 
 **Java Console Application (Modern Java, Functional & Concurrent)**
